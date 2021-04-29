@@ -1,10 +1,30 @@
+
+
+.foto{
+    display: inline-flex;
+    flex-direction: column;
+    width:20em;
+    padding: 5em;
+    border:1px solid #000;
+    align-content: center;
+}
+
+.foto>input[type="file"]{
+    display:none;
+}
+
+.foto>footer{
+    display: flex;
+    justify-content: space-between;
+}
+
 * {
   box-sizing: border-box;
   text-decoration: none;
   font-family: "Roboto", sans-serif;
 }
 /*html{
-	 background: #DFE8EB 
+	 background: #DFE8EB
 	 url(patterns_rdr2.png);
 }*/
 
@@ -313,7 +333,7 @@ body > footer > p {
 	body > nav > ul > li > a {
 		font-size: 0;
 	  }
-	
+
 	  body > nav > ul > li > a::before {
 		font-size: 1.125rem;
 	  }

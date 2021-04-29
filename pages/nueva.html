@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="../css/animation.css">
     <title>AlexelcapoRutas</title>
     <link href="../css/estilo.css" rel="stylesheet" />
+    <script src="../script/script.js"></script>
 </head>
 
 <body>
@@ -72,7 +73,7 @@
         <h2>Nueva ruta</h2>
         <div>
 
-
+            <!--
             <form action="index.html">
                 <fieldset>
                     <p>
@@ -109,6 +110,21 @@
                     </p>
                 </fieldset>
             </form>
+            -->
+            <section>
+                <h2>
+                    Dar de alta una foto:
+                </h2>
+                <div class="foto">
+                    <img src="../src/noimage.png" alt="Foto" onclick="document.querySelector('#fichero').click();">
+                    <input type="file" name="fichero" id="fichero" onchange="mostrarImagen(this)">
+                    <textarea name="texto" placeholder="escribe aquí la descripción de la foto"></textarea>
+                    <footer>
+                        <button onclick="document.querySelector('#fichero').click();">Cargar</button><button onclick="enviarFoto();">Enviar</button>
+                    </footer>
+                </div>
+            </section>
+
 
 
         </div>
