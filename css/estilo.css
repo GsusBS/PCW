@@ -360,3 +360,38 @@ body > footer > p {
     margin-left: 1em;
   }
 }
+
+#msj-modal{
+  position:fixed;
+  left:0;
+  top:0;
+  bottom: 0;
+  right: 0;
+
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+#msj-modal>article{
+    width: 20em;
+    border: 1px solid #000;
+    text-align: center;
+    background-color: white;
+
+    position: relative;
+    top: 5em;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#msj-modal>article>h2{
+  margin: 0;
+  padding: 0.5em;
+  background-color: green;
+  color: white;
+}
+
+
+#msj-modal>article>footer{
+  margin: 0.5em;
+
+}

@@ -141,17 +141,67 @@ function enviarFoto()
         xhr.send(fd);
 
 }
-
+//mostrar titulos de ruta TO DO: MOSTRAR FICHAS DE RUTAS CON TODOS LOS DATOS
+//peticion mostrar rutas con fetch
 function pedirRutas(){
     let url = 'api/rutas';
+
+    //ejemplo filtrar con pirineos + usuario 3
+    // url -= '?t=pirineos&a=usuario3';
+
+    //paginación
+    //url += '?pag=1&lpag=2
 
     fetch(url).then(function(response){
         if(response.ok)
         {
+            // response.text().then(function (texto) {
+            //     console.log(texto);
+            // });
+            response.json().then(function(datos){
+                //console.log(datos);
+                let ul = document.createElement('ul');
 
+                datos.FILAS.forEach(function(e,idx,v){
+                    let li = document.createElement('li');
+                    li.innerHTML =  e.nombre;
+                    //solo para texto li.textContent = e.nombre;
+                    ul.appendChild(li);
+                });
+                document.querySelector('#titulosRutas').innerHTML = ''; //limpiamos contenido para que no se muestren mas cada vez
+                document.querySelector('#titulosRutas').appendChild(ul); //añadimos los datos 1 vez
+            });
         }
         else{
-            console.log('Error ' + response.status + ': ' response.statusText);
+            console.log('Error ' + response.status + ': ' + response.statusText);
         }
+    }).catch(function(error) {
+        console.log('Fetch Error: ', err);
     });
 }
+
+//https://www.youtube.com/watch?v=llWqMUohBYU 1:15 como hacer el mensaje modal
+
+function mostrarMensaje(){
+    let div = document.createElement('div'),
+        html;
+
+    div.id = 'msj-modal';
+    html = `<article>
+                <h2>TITULO DEL MENSAJE</h2>
+                <p>Texto del mensaje de prueba</p>
+                <footer>
+                    <button onclick="document.querySelector('#msj-modal').remove();">Cerrar</button>
+                </footer>
+                </article>`;
+
+    div.innerHTML = html;
+
+    document.body.appendChild(div);
+}
+
+//TO DO: hacer el menu de navegación con el data-pagina para mostrar el menu segun la página
+
+
+
+
