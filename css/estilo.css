@@ -399,3 +399,40 @@ body > footer > p {
 .imgUsuPerfil{
     width:1em;
 }
+.imgsRuta{
+  width: inherit;
+}
+
+    .paging{
+		background: #ccc;
+		width: 300px;
+		margin: 20px auto;
+		border-radius: 10px;
+		border: 1px solid black;
+		-webkit-box-shadow: -4px 3px 6px 0px rgba(0,0,0,0.75);
+		-moz-box-shadow: -4px 3px 6px 0px rgba(0,0,0,0.75);
+		box-shadow: -4px 3px 6px 0px rgba(0,0,0,0.75);
+
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+	}
+
+		.paging>button{
+			border-radius: 10px;
+			margin: 3px;
+			color: #000;
+			background: #fff;
+			padding: 2px 4px;
+		}
+
+		.paging>button:hover{
+			background: #175781;
+		}
+
+		.paging>p{
+			border: solid 2px #175781;
+			border-radius: 5px;
+			text-align: center;
+
+		}

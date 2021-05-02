@@ -20,52 +20,29 @@
     <script src="../script/script.js"></script>
 </head>
 
-<body>
+<body onload="comprobLog();" data-pagina="buscar" >
     <header>
-        <img id="logo" src="../src/logo.png" alt="../src/logo">
+
+        <a href="index.html">
+            <img id="logo" src="../src/logo.png" alt="../src/logo">
+        </a>
         <div>
             <a href="index.html">
                 <h1>AR - AlexelcapoRutas</h1>
-                <p>Tu pagina de rutas</p>
+                <p>Tu página de rutas</p>
             </a>
         </div>
     </header>
     <nav>
         <input type="checkbox" id="ckbMenu">
-        <ul>
+        <ul id="menu">
             <li><label for="ckbMenu">&equiv;</label></li>
             <li>
-                <a href="index.html" class="icon-bank">
-                    Inicio
-                </a>
-            </li>
-            <li>
-                <a href="buscar.html" class="icon-search">
-                    Buscar
-                </a>
-            </li>
-            <li>
-                <a href="nueva.html" class="icon-upload">
-                    Nueva Ruta
-                </a>
-            </li>
-            <li>
-                <a href="#" class="icon-logout">
-                    Logout
-                </a>
-            </li>
-            <li>
-                <a href="login.html" class="icon-login">
-                    Login
-                </a>
-            </li>
-            <li>
-                <a href="registro.html" class="icon-paper-plane">
-                    Registro
-                </a>
-            </li>
+                <a href="index.html">Inicio<span class="icon-bank"></span><span>Inicio</span></a>
+
         </ul>
     </nav>
+
     <section>
         <h2>Búsqueda de rutas</h2>
         <form action="index.html">
@@ -109,71 +86,16 @@
             </p>
 
         </form>
-        <h2>Resultado de la Búsqueda:</h2>
-        <div>
-
-            <article>
-                <h3><a href="ruta.html">De vacaciones</a></h3>
-                <a href="ruta.html"><img src="../src/alexelcapo.jpg" alt="no hay"></a>
-                <p>Dificultad: 2</p>
-                <footer>
-                    <p>Autor: <a href="buscar.html">Jesus Bernabeu </a> Fecha: 18/03/2018</p>
-                </footer>
-            </article>
-            <article>
-                <h3><a href="ruta.html">De vacaciones</a></h3>
-                <a href="ruta.html"><img src="../src/alexelcapo.jpg" alt="no hay"></a>
-                <p>Dificultad: 2</p>
-                <footer>
-                    <p>Autor: <a href="buscar.html">Jesus Bernabeu </a> Fecha: 18/03/2018</p>
-                </footer>
-            </article>
-            <article>
-                <h3><a href="ruta.html">De vacaciones</a></h3>
-                <a href="ruta.html"><img src="../src/alexelcapo.jpg" alt="no hay"></a>
-                <p>Dificultad: 2</p>
-                <footer>
-                    <p>Autor: <a href="buscar.html">Jesus Bernabeu </a> Fecha: 18/03/2018</p>
-                </footer>
-            </article>
-            <article>
-                <h3><a href="ruta.html">De vacaciones</a></h3>
-                <a href="ruta.html"><img src="../src/alexelcapo.jpg" alt="no hay"></a>
-                <p>Dificultad: 2</p>
-                <footer>
-                    <p>Autor: <a href="buscar.html">Jesus Bernabeu </a> Fecha: 18/03/2018</p>
-                </footer>
-            </article>
-            <article>
-                <h3><a href="ruta.html">De vacaciones</a></h3>
-                <a href="ruta.html"><img src="../src/alexelcapo.jpg" alt="no hay"></a>
-                <p>Dificultad: 2</p>
-                <footer>
-                    <p>Autor: <a href="buscar.html">Jesus Bernabeu </a> Fecha: 18/03/2018</p>
-                </footer>
-            </article>
-            <article>
-                <h3><a href="ruta.html">De vacaciones</a></h3>
-                <a href="ruta.html"><img src="../src/alexelcapo.jpg" alt="no hay"></a>
-                <p>Dificultad: 2</p>
-                <footer>
-                    <p>Autor: <a href="buscar.html">Jesus Bernabeu </a> Fecha: 18/03/2018</p>
-                </footer>
-            </article>
-
-        </div>
+        <h2 id="results">Resultados</h3>
+        <div id="fotos-buscar"></div>
         <footer>
 
-            <div>
-                <h3>Página:</h3>
-                <button class="boton_personalizado">primera</button>
-                <button class="boton_personalizado">anterior</button>
-                <button class="boton_personalizado">1</button>
-                <button class="boton_personalizado2">2</button>
-
-                <button class="boton_personalizado">3</button>
-                <button class="boton_personalizado">siguiente</button>
-                <button class="boton_personalizado">última</button>
+            <div class="paging">
+                <button onclick="First()">First</button>
+                <button onclick="Previous()">Previous</button>
+                <p><output id="actualPag">1</output>/<output id="maxPag"></output></p>
+                <button onclick="Next()">Next</button>
+                <button onclick="Last()">Last</button>
             </div>
 
         </footer>
@@ -183,6 +105,9 @@
         <p><a href="acerca.html" class="link">Mas informacion</a></p>
         <button class="boton_personalizado" role="link" onclick="window.location='buscar.html'">Inicio</button>
     </footer>
+    <script>
+        recogerBusqueda(0);
+    </script>
 </body>
 
 </html>

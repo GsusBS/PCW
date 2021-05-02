@@ -14,9 +14,10 @@ function rellenar() { // Se comprueba si hay soporte para Web Storage
 }
 
 //video de clase https://www.youtube.com/watch?v=tgzd8k4gLhk pedir Datos
-function pedirRutasIndex() {
+/*
+function pedirRutasIndex(pagina) {
     let xhr = new XMLHttpRequest(),
-        url = 'api/get/rutas.php';
+        url = 'api/get/rutas';
 
     xhr.open('GET', url, true);
 
@@ -30,13 +31,13 @@ function pedirRutasIndex() {
             html += '<li>Ruta nº ${idx}: ${e.nombre}</li>';
         });
 
-        html += '</ul>'; */
+        html += '</ul>';
         v.FILAS.forEach(function (e, idx) {
             html += `
                 <article>
                 <h3>Ruta nº ${idx + 1}</h2>
                 <h2>${e.nombre}</h2>
-                            <a href="ruta.html?${idx}"><img src="fotos/rutas/${e.imagen}" alt="Foto de la ruta ${idx + 1}"></a>
+                            <a href="ruta.html?${idx + 1}"><img src="fotos/rutas/${e.imagen}" alt="Foto de la ruta ${idx + 1}"></a>
                                 <figcaption>${e.texto_imagen}</figcaption>
                             </img>
                             <p>Dificultad: ${e.dificultad}</p>
@@ -56,6 +57,91 @@ function pedirRutasIndex() {
     };
 
     xhr.send();
+}*/
+
+function pedirRutasIndex(pagina) {  //SHOW PHOTOS INDEX
+    var url = 'api/rutas?pag=' + pagina + '&lpag=6';
+    let usu,
+        auth;
+    console.log(url);
+    if (!sessionStorage['pcw']) { //Si NO esta logueado
+        MuestraFotosIndexSIN(url);
+    }
+    else {
+        usu = JSON.parse(sessionStorage['pcw']);
+        auth = usu.login + ':' + usu.token;
+        fetch(url, { 'headers': { 'Authorization': auth } }).then(
+            //TODO OK:
+            function (response) {
+                if (!response.ok) {
+                    response.json().then(function (datos) {
+                    });
+                    return;
+                }
+                response.json().then(function (datos) {
+                    let html = '';
+                    datos.FILAS.forEach(function (e) {
+                        html += `
+                <article>
+                <h3>Ruta nº ${e.id}</h2>
+                <h2>${e.nombre}</h2>
+                            <a href="ruta.html?${e.id}"><img src="fotos/rutas/${e.imagen}" alt="Foto de la ruta ${e.id}"></a>
+                                <figcaption>${e.texto_imagen}</figcaption>
+                            </img>
+                            <p>Dificultad: ${e.dificultad}</p>
+                    <footer>
+                        <p>Autor: <a href="buscar.html?${e.login}">${e.login} <img class="imgUsuPerfil" src="fotos/usuarios/${e.foto_autor}"></img></a>
+                            <p> <time datetime=${e.fecha_hora}">Fecha: ${e.fecha_hora}</time></p>
+                    </footer>
+                </article >`;
+
+                    });
+
+                    document.querySelector('#resultado').innerHTML = html;
+                });
+            },
+            //All Bad
+            function (response) {
+                console.log('ERROR');
+            });
+    }
+}
+
+function MuestraFotosIndexSIN(url) { //SIN LOGUEAR!!!!!!!!!
+    fetch(url).then(
+        //TODO OK:
+        function (response) {
+            if (!response.ok) {
+                response.json().then(function (datos) {
+                });
+                return;
+            }
+            response.json().then(function (datos) {
+                let html = '';
+                datos.FILAS.forEach(function (e) {
+                    html += `
+                <article>
+                <h3>Ruta nº ${e.id}</h2>
+                <h2>${e.nombre}</h2>
+                            <a href="ruta.html?${e.id}"><img src="fotos/rutas/${e.imagen}" alt="Foto de la ruta ${e.id}"></a>
+                                <figcaption>${e.texto_imagen}</figcaption>
+                            </img>
+                            <p>Dificultad: ${e.dificultad}</p>
+                    <footer>
+                        <p>Autor: <a href="buscar.html?${e.login}">${e.login} <img class="imgUsuPerfil" src="fotos/usuarios/${e.foto_autor}"></img></a>
+                            <p> <time datetime=${e.fecha_hora}">Fecha: ${e.fecha_hora}</time></p>
+                    </footer>
+                </article >`;
+
+                });
+
+                document.querySelector('#resultado').innerHTML = html;
+            });
+        },
+        //All Bad
+        function (response) {
+            console.log('ERROR');
+        });
 }
 
 //video de clase https://www.youtube.com/watch?v=tgzd8k4gLhk hacer login, min 30
@@ -188,8 +274,25 @@ function mostrarMensaje() {
 
     div.id = 'msj-modal';
     html = `<article>
-                <h2>TITULO DEL MENSAJE</h2>
-                <p>Texto del mensaje de prueba</p>
+                <h2>Tu comentarios se ha guardado correctamente</h2>
+                <footer>
+                    <button onclick="document.querySelector('#msj-modal').remove();">Cerrar</button>
+                </footer>
+                </article>`;
+
+    div.innerHTML = html;
+
+    document.body.appendChild(div);
+}
+
+function mostrarMensajeError() {
+    let div = document.createElement('div'),
+        html;
+
+    div.id = 'msj-modal';
+    html = `<article>
+                <h2>Tu comentario ha fallado</h2>
+                <p>Vuelve a intentarlo</p>
                 <footer>
                     <button onclick="document.querySelector('#msj-modal').remove();">Cerrar</button>
                 </footer>
@@ -249,3 +352,393 @@ function cargaPorContenido() {
     xhr.send();
 }
 
+
+function rutaLOGorNot() {
+    if (sessionStorage['pcw'] != null) { //Si el usuario SI esta logueado
+        rutaLOG();
+        //mostrarFormComentario();
+        cargarForm();
+    }
+    else {
+        //ruta(); //no esta logueado.
+    }
+}
+
+function rutaLOG() { //para foto.html cuando SI estes logueado.
+    if (window.location.search == "") {
+        location.href = 'index.html';
+    }
+    var id_ruta = window.location.search;	//Extraigo el numero de id de la foto;
+    id_ruta = id_ruta.split("?")[1];
+
+    let aux = '',
+        auxFav = '',
+        auxTime = '',
+        auxDate = '',
+        usu = JSON.parse(sessionStorage['pcw']),
+        auth = usu.login + ':' + usu.token;
+
+    var url = 'api/rutas/' + id_ruta;
+
+    fetch(url, { 'headers': { 'Authorization': auth } }).then(
+        //TODO OK:
+        function (response) {
+            if (!response.ok) {
+                response.json().then(function (datos) {
+                    console.log(datos);
+                });
+                return;
+            }
+
+            response.json().then(function (datos) {
+                console.log(datos);
+                let e = datos.FILAS[0];
+                let html = '';
+                //console.log(e);
+
+                //Info basica
+                document.querySelector('#file-foto').src = 'fotos/rutas/' + e.imagen;
+                document.querySelector('#file-foto').alt = 'fotos/' + e.descripcion;
+                document.querySelector('#title-foto').innerHTML = e.nombre;
+                document.querySelector('#numComentarios-foto').innerHTML = e.ncomentarios;
+                document.querySelector('#autor-foto').innerHTML = '<a href="buscar.html?l=' + e.login + '">' + e.login + '<img src="fotos/usuarios/' + e.foto_autor + '" width="20"></a>';
+
+
+                aux += `<span class="">Dificultad: </span><span id="dificultad-foto">${e.dificultad}</span>`;
+                document.querySelector('#colorDif').innerHTML = aux;
+                auxTime += `<span class="">Tiempo para compoletar la ruta: </span><span id="tiempo-foto">${e.tiempo}</span>`;
+                document.querySelector('#colorTiempo').innerHTML = auxTime;
+                auxDate += `<span class="">fecha de subida de la ruta: </span><span id="fecha-foto">${e.fecha_hora}</span>`;
+                document.querySelector('#colorFecha').innerHTML = auxDate;
+
+                if (e.ruta_favorita > 0) { //Sí LA HA MARCADO
+                    auxFav += `<span class="" onclick="disFav();">Favorita: </span><span id="numFavoritas-foto">${e.nfavoritas}</span>`;
+                    document.querySelector('#colorFav').innerHTML = auxFav;
+                    document.getElementById("colorFav").style.color = "blue";
+                    document.getElementById("colorFav").style.cursor = "pointer";
+                    //document.querySelector('#numFavoritas-foto').innerHTML = e.nfavorita;
+                    //html += `<a href="#"><span style="color:blue;" class="icon-favourite"><span>${e.nfavorita}</span></span></a>`;
+                }
+                else { //NO LA HA MARCADO
+                    auxFav += `<span class="" onclick="addFav();">Favorita: </span><span id="numFavoritas-foto">${e.nfavoritas}</span>`;
+                    document.querySelector('#colorFav').innerHTML = auxFav;
+                    document.getElementById("colorFav").style.color = "red";
+                    document.getElementById("colorFav").style.cursor = "pointer";
+                    //document.querySelector('#numFavoritas-foto').innerHTML = e.nfavorita;
+                    //html += `<a href="#"><span class="icon-favourite"><span>${e.nfavorita}</span></span></a>`;
+                }
+            });
+        },
+        //TODO MAL:
+        function (response) {
+            console.log('ERROR');
+        });
+}
+
+
+
+function rutaFotos() {
+    if (window.location.search == "") {
+        location.href = 'index.html';
+    }
+    var id_ruta = window.location.search;	//Extraigo el numero de id de la foto;
+    id_ruta = id_ruta.split("?")[1];
+
+    var url = 'api/rutas/' + id_ruta + '/fotos';
+
+    fetch(url).then(
+        //TODO OK:
+        function (response) {
+            if (!response.ok) {
+                response.json().then(function (datos) {
+                    console.log(datos);
+                });
+                return;
+            }
+
+            response.json().then(function (datos) {
+                console.log(datos);
+                let html = '';
+                datos.FILAS.forEach(function (e) {
+                    html += `<article>
+								<img class="imgsRuta" src=fotos/rutas/${e.fichero} alt=${e.fichero}> </img>
+								<p>Numero de foto: ${e.id}</p>
+								<hr>
+								<p>${e.texto}</p>
+							</article>`
+                });
+                document.querySelector('#ruta-fotos').innerHTML = html;
+            });
+        },
+        //TODO MAL:
+        function (response) {
+            console.log('ERROR');
+        });
+
+}
+
+function ruta() {
+    if (window.location.search == "") {
+        location.href = 'index.html';
+    }
+    var id_ruta = window.location.search;	//Extraigo el numero de id de la foto;
+    id_ruta = id_ruta.split("?")[1];
+    let aux = '',
+        auxFav = '',
+        auxTime = '',
+        auxDate = '';
+    var url = 'api/rutas/' + id_ruta;
+    //console.log(url);
+    if (sessionStorage['pcw'] != null) { //Si el usuario SI esta logueado
+        rutaLOG(url);
+        //mostrarFormComentario();
+        cargarForm();
+    }
+    fetch(url).then(
+        //TODO OK:
+        function (response) {
+            if (!response.ok) {
+                response.json().then(function (datos) {
+                    console.log(datos);
+                });
+                return;
+            }
+
+            response.json().then(function (datos) {
+                console.log(datos);
+                let e = datos.FILAS[0];
+                let html = '';
+                //console.log(e);
+
+                //Info basica
+                document.querySelector('#file-foto').src = 'fotos/rutas/' + e.imagen;
+                document.querySelector('#file-foto').alt = 'fotos/' + e.descripcion;
+                document.querySelector('#title-foto').innerHTML = e.nombre;
+                document.querySelector('#numComentarios-foto').innerHTML = e.ncomentarios;
+                document.querySelector('#autor-foto').innerHTML = '<a href="buscar.html?l=' + e.login + '">' + e.login + '<img src="fotos/usuarios/' + e.foto_autor +'" width="20"></a>';
+
+
+                aux += `<span class="">Dificultad: </span><span id="dificultad-foto">${e.dificultad}</span>`;
+                document.querySelector('#colorDif').innerHTML = aux;
+                auxFav += `<span class="icon-favourite">Favorita: </span><span id="numFavoritas-foto">${e.nfavoritas}</span>`;
+                document.querySelector('#colorFav').innerHTML = auxFav;
+                auxTime += `<span class="">Tiempo para compoletar la ruta: </span><span id="tiempo-foto">${e.tiempo}</span>`;
+                document.querySelector('#colorTiempo').innerHTML = auxTime;
+                auxDate += `<span class="">fecha de subida de la ruta: </span><span id="fecha-foto">${e.fecha_hora}</span>`;
+                document.querySelector('#colorFecha').innerHTML = auxDate;
+            });
+        },
+        //TODO MAL:
+        function (response) {
+            console.log('ERROR');
+        });
+}
+
+
+//----------------------------------------------------Empiezo lo de mostrar comentarios de la ruta----------------------
+function rutaComentarios() { //Muestra todos los comentarios que tiene la ruta
+    if (window.location.search.split("html")[0] == "") {
+        location.href = 'index.html';
+    }
+
+    var id_ruta = window.location.search;	//Extraigo el numero de id de la ruta;
+    id_ruta = id_ruta.split("?")[1];
+
+    var url = 'api/rutas/' + id_ruta + '/comentarios';
+
+    fetch(url).then(
+        //TODO OK:
+        function (response) {
+            if (!response.ok) {
+                response.json().then(function (datos) {
+                    console.log(datos);
+                });
+                return;
+            }
+
+            response.json().then(function (datos) {
+                console.log(datos);
+                let html = '';
+
+                datos.FILAS.forEach(function (e) {
+                    html += `<article>
+								<p>${e.fecha_hora}</p>
+								<p>${e.texto}</p>
+								<hr>
+								<p>${e.login} <img class="imgUsuPerfil" src="fotos/usuarios/${e.foto_autor}"></img></p>
+							</article>`
+                });
+                document.querySelector('#photo-comments').innerHTML = html;
+            });
+        },
+        //TODO MAL:
+        function (response) {
+            console.log('ERROR');
+        });
+}
+
+function cargarForm() {
+    let xhr = new XMLHttpRequest(),
+        url = 'commentForm.html';
+
+    xhr.open('GET', url, true);
+    xhr.onload = function () {
+        document.getElementById("comentarios_logueado").innerHTML = '';
+        document.querySelector('#formulario_comentarios').innerHTML = xhr.responseText;
+    };
+    xhr.send();
+}
+
+function addFav() {
+    if (sessionStorage['pcw'] != null) { //Si el usuario SI esta logueado
+        let usu = JSON.parse(sessionStorage['pcw']),
+            auth = usu.login + ':' + usu.token,
+            xhr = new XMLHttpRequest(),
+            idRuta = location.search.substring(1),
+            url = `api/rutas/${idRuta}/favorita/true`;
+
+        xhr.open('POST', url, true);
+        xhr.onload = function () {
+            let r = JSON.parse(xhr.responseText);
+            if (r.RESULTADO == 'OK') {
+                console.log("Se ha marcado como Favorita.");
+                rutaLOG()
+            }
+        };
+        xhr.setRequestHeader('Authorization', auth);
+        xhr.send();
+    }
+}
+
+function disFav() {
+    if (sessionStorage['pcw'] != null) {
+        let usu = JSON.parse(sessionStorage['pcw']),
+            auth = usu.login + ':' + usu.token,
+            xhr = new XMLHttpRequest(),
+            idRuta = location.search.substring(1),
+            url = `api/rutas/${idRuta}/favorita/false`;
+
+        xhr.open('POST', url, true);
+        xhr.onload = function () {
+            let r = JSON.parse(xhr.responseText);
+            if (r.RESULTADO == 'OK') {
+                console.log("Se ha DESmarcado como Favorita.");
+                rutaLOG();
+            }
+        };
+        xhr.setRequestHeader('Authorization', auth);
+        xhr.send();
+    }
+}
+
+function addComment(frm) {
+    if (sessionStorage['pcw'] != null) { //Si el usuario SI esta logueado
+        let usu = JSON.parse(sessionStorage['pcw']),
+            auth = usu.login + ':' + usu.token,
+            xhr = new XMLHttpRequest(),
+            idRuta = location.search.substring(1),
+            url = `api/rutas/${idRuta}/comentario`,
+            fd = new FormData(frm);
+
+        xhr.open('POST', url, true);
+        xhr.onload = function () {
+            let r = JSON.parse(xhr.responseText);
+            if (r.RESULTADO == 'OK') {
+                console.log("Se ha guardado el comentario.");
+                mostrarMensaje();
+                ifComment = true;
+
+                rutaComentarios();
+            }
+            else {
+                console.log("NO se ha podido guardar el comentario.");
+                mostrarMensajeError();
+                ifComment = false;
+            }
+        };
+        xhr.setRequestHeader('Authorization', auth);
+        xhr.send(fd);
+        return false;
+    }
+}
+
+//******************************************* PAGINACION **************************
+function Next() {
+    if (document.body.getAttribute('data-pagina') == 'index') {
+        if (parseInt(document.querySelector('#actualPag').innerHTML) < parseInt(document.querySelector('#maxPag').innerHTML)) {
+            MuestraFotosIndex((parseInt(document.querySelector('#actualPag').innerHTML)));
+            document.querySelector('#actualPag').innerHTML++;
+        }
+    }
+    else if (document.body.getAttribute('data-pagina') == 'buscar') {
+        if (parseInt(document.querySelector('#actualPag').innerHTML) < parseInt(document.querySelector('#maxPag').innerHTML)) {
+            buscarLOGorNot((parseInt(document.querySelector('#actualPag').innerHTML)));
+            document.querySelector('#actualPag').innerHTML++;
+        }
+    }
+}
+function First() {
+    if (document.body.getAttribute('data-pagina') == 'index') {
+        if (parseInt(document.querySelector('#actualPag').innerHTML) > 1) {
+            document.querySelector('#actualPag').innerHTML = 1;
+            MuestraFotosIndex(0);
+        }
+    }
+    else if (document.body.getAttribute('data-pagina') == 'buscar') {
+        if (parseInt(document.querySelector('#actualPag').innerHTML) > 1) {
+            document.querySelector('#actualPag').innerHTML = 1;
+            buscarLOGorNot(0);
+        }
+    }
+}
+function Previous() {
+    if (document.body.getAttribute('data-pagina') == 'index') {
+        if (parseInt(document.querySelector('#actualPag').innerHTML) > 1) {
+            document.querySelector('#actualPag').innerHTML--;
+            MuestraFotosIndex((parseInt(document.querySelector('#actualPag').innerHTML)) - 1);
+        }
+    }
+    else if (document.body.getAttribute('data-pagina') == 'buscar') {
+        if (parseInt(document.querySelector('#actualPag').innerHTML) > 1) {
+            document.querySelector('#actualPag').innerHTML--;
+            buscarLOGorNot((parseInt(document.querySelector('#actualPag').innerHTML)) - 1);
+        }
+    }
+}
+function Last() {
+    if (document.body.getAttribute('data-pagina') == 'index') {
+        if (parseInt(document.querySelector('#actualPag').innerHTML) < parseInt(document.querySelector('#maxPag').innerHTML)) {
+            document.querySelector('#actualPag').innerHTML = document.querySelector('#maxPag').innerHTML;
+            MuestraFotosIndex((parseInt(document.querySelector('#actualPag').innerHTML) - 1));
+        }
+    }
+    else if (document.body.getAttribute('data-pagina') == 'buscar') {
+        if (parseInt(document.querySelector('#actualPag').innerHTML) < parseInt(document.querySelector('#maxPag').innerHTML)) {
+            document.querySelector('#actualPag').innerHTML = document.querySelector('#maxPag').innerHTML;
+            buscarLOGorNot((parseInt(document.querySelector('#actualPag').innerHTML) - 1));
+        }
+    }
+}
+function numeroDePaginas() {
+    var totalPaginas;
+    let url = 'api/rutas/?pag=0&lpag=6';
+    fetch(url).then(
+        function (response) {
+            if (!response.ok) {
+                response.json().then(function (datos) {
+                    //console.log(datos);
+                });
+                return;
+            }
+            response.json().then(function (datos) {
+                //console.log(datos.TOTAL_COINCIDENCIAS);
+                totalPaginas = datos.TOTAL_COINCIDENCIAS / 6;
+                totalPaginas = Math.ceil(totalPaginas);
+                document.querySelector('#maxPag').innerHTML = totalPaginas;
+            });
+        },
+        //All Bad:
+        function (response) {
+            console.log('ERROR');
+        });
+}
