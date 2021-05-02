@@ -14,7 +14,7 @@ function rellenar() { // Se comprueba si hay soporte para Web Storage
 }
 
 //video de clase https://www.youtube.com/watch?v=tgzd8k4gLhk pedir Datos
-function pedirDatos() {
+function pedirRutasIndex() {
     let xhr = new XMLHttpRequest(),
         url = 'api/get/rutas.php';
 
@@ -34,13 +34,15 @@ function pedirDatos() {
         v.FILAS.forEach(function (e, idx) {
             html += `
                 <article>
-                            <a href="ruta.html"><img src="fotos/rutas/${e.imagen}" alt="Foto de la ruta ${idx + 1}"></a>
-                                <figcaption>${e.nombre}</figcaption>
+                <h3>Ruta nº ${idx + 1}</h2>
+                <h2>${e.nombre}</h2>
+                            <a href="ruta.html?${idx}"><img src="fotos/rutas/${e.imagen}" alt="Foto de la ruta ${idx + 1}"></a>
+                                <figcaption>${e.texto_imagen}</figcaption>
                             </img>
-                            <p>Dificultad: 2</p>
+                            <p>Dificultad: ${e.dificultad}</p>
                     <footer>
-                        <p>Autor: <a href="buscar.html">Jesus Bernabeu </a>
-                            <p> <time datetime="2017-02-14 0:00">Fecha: 2017-02-14</time></p>
+                        <p>Autor: <a href="buscar.html?${e.login}">${e.login} <img class="imgUsuPerfil" src="fotos/usuarios/${e.foto_autor}"></img></a>
+                            <p> <time datetime=${e.fecha_hora}">Fecha: ${e.fecha_hora}</time></p>
                     </footer>
                 </article >`;
 
@@ -78,72 +80,71 @@ function hacerLogin(frm) {
 }
 
 
-function hacerLogout(){
+function hacerLogout() {
 
     let url = 'api/post/usuarios/logout.php',
         xhr = new XMLHttpRequest(),
-        usu,clave;
+        usu, clave;
 
-        if(!sessionStorage['pcw'])
-            return;
+    if (!sessionStorage['pcw'])
+        return;
 
-        usu = JSON.parse(sessionStorage['pcw']);
-        clave = usu.login + ':' + usu.token;
+    usu = JSON.parse(sessionStorage['pcw']);
+    clave = usu.login + ':' + usu.token;
 
-        xhr.open('POST', url, true);
+    xhr.open('POST', url, true);
 
-        xhr.onload=function() {
-            console.log(xhr.responseText);
-            let r = JSON.parse(xhr.responseText);
-            if(r.RESULTADO == "OK")
-                sessionStorage.removeItem('pcw');
-        };
+    xhr.onload = function () {
+        console.log(xhr.responseText);
+        let r = JSON.parse(xhr.responseText);
+        if (r.RESULTADO == "OK")
+            sessionStorage.removeItem('pcw');
+    };
 
-        xhr.setRequestHeader('authorization', clave);
-        xhr.send();
+    xhr.setRequestHeader('authorization', clave);
+    xhr.send();
 }
 
 function mostrarImagen(inp) {
     let fr = new FileReader();
 
     //if(!inp.files[0])
-    if(inp.files.length < 1)
+    if (inp.files.length < 1)
         return;
 
-    fr.onload = function(){
+    fr.onload = function () {
         inp.parentNode.querySelector('img').src = fr.result;
     };
 
     fr.readAsDataURL(inp.files[0]);
 }
 
-function enviarFoto()
-{
+function enviarFoto() {
     let inp = document.querySelector('#fichero'),
-        fd =  new FormData(),
+        fd = new FormData(),
         url = 'api/rutas/2/foto',
         usu = JSON.parse(sessionStorage['pcw']),
         xhr = new XMLHttpRequest();
 
-        // envio la foto
-        fd.append('fichero', inp.files[0]);
-        //  añado texto
-        fd.append('texto', inp.parentNode.querySelector('textarea').value);
+    // envio la foto
+    fd.append('fichero', inp.files[0]);
+    //  añado texto
+    fd.append('texto', inp.parentNode.querySelector('textarea').value);
 
-        xhr.open('POST', url, true);
+    xhr.open('POST', url, true);
 
-        xhr.onload = function(){
-            console.log(xhr.responseText);
-        }
+    xhr.onload = function () {
+        console.log(xhr.responseText);
+    }
 
-        xhr.setRequestHeader('Authorization', usu.login + ':' + usu.token);
+    xhr.setRequestHeader('Authorization', usu.login + ':' + usu.token);
 
-        xhr.send(fd);
+    xhr.send(fd);
 
 }
 //mostrar titulos de ruta TO DO: MOSTRAR FICHAS DE RUTAS CON TODOS LOS DATOS
 //peticion mostrar rutas con fetch
-function pedirRutas(){
+function pedirRutas() {
     let url = 'api/rutas';
 
     //ejemplo filtrar con pirineos + usuario 3
@@ -152,19 +153,18 @@ function pedirRutas(){
     //paginación
     //url += '?pag=1&lpag=2
 
-    fetch(url).then(function(response){
-        if(response.ok)
-        {
+    fetch(url).then(function (response) {
+        if (response.ok) {
             // response.text().then(function (texto) {
             //     console.log(texto);
             // });
-            response.json().then(function(datos){
+            response.json().then(function (datos) {
                 //console.log(datos);
                 let ul = document.createElement('ul');
 
-                datos.FILAS.forEach(function(e,idx,v){
+                datos.FILAS.forEach(function (e, idx, v) {
                     let li = document.createElement('li');
-                    li.innerHTML =  e.nombre;
+                    li.innerHTML = e.nombre;
                     //solo para texto li.textContent = e.nombre;
                     ul.appendChild(li);
                 });
@@ -172,17 +172,17 @@ function pedirRutas(){
                 document.querySelector('#titulosRutas').appendChild(ul); //añadimos los datos 1 vez
             });
         }
-        else{
+        else {
             console.log('Error ' + response.status + ': ' + response.statusText);
         }
-    }).catch(function(error) {
+    }).catch(function (error) {
         console.log('Fetch Error: ', err);
     });
 }
 
 //https://www.youtube.com/watch?v=llWqMUohBYU 1:15 como hacer el mensaje modal
 
-function mostrarMensaje(){
+function mostrarMensaje() {
     let div = document.createElement('div'),
         html;
 
@@ -202,6 +202,50 @@ function mostrarMensaje(){
 
 //TO DO: hacer el menu de navegación con el data-pagina para mostrar el menu segun la página
 
+function comprobLog() {
+    let menu = document.querySelector('#menu'),
+        html = '',
+        usu,
+        fulano,
+        htmlFulano = '';
+    if (!sessionStorage['pcw'] || sessionStorage['pcw']==null ) { //Si NO esta logueado
+        html += '<li><a href="registro.html">Registro<span class="icon-register"></span><span>Registro</span></a></li>';
+        html += '<li><a href="login.html">Login<span class="icon-login"></span><span>Login</span></a></li>';
+    }
+    if (sessionStorage['pcw'] != null) { //Si SI esta logueado
+        console.log("Fulanito: " + sessionStorage['pcw'] + " está logueado.");
+        usu = JSON.parse(sessionStorage['pcw']);
+        fulano = usu.login;
+        console.log("Este es el fulano: " + fulano);
+        /*htmlFulano += 'Logout (' + fulano +')';
+        console.log("A ver qué pone: " + htmlFulano);
+        document.querySelector('#bot3>span:nth-of-type(2)').innerHTML = htmlFulano;*/
+        html += '<li><a href="nueva.html">Nueva Ruta<span class="icon-upload"></span><span>Nueva Ruta</span></a></li>';
+        html += `<li><a href="index.html" onclick="hacerLogout();"><span class="icon-logout"></span>Logout<span> (${fulano})</span> <img class="imgUsuPerfil" src="fotos/usuarios/${usu.foto}"></img> </a></li>`;
+    }
+    menu.innerHTML += html;
+}
+
+//como tener el id de la ruta a traves de la url, con el BOM
+//location.search.subsrt(1).split('=')[1];
+//como saber si viene el id de la ruta = location.serach.length
 
 
+//carga condicional de contenido para solo usuario logeado
+
+//carga condicional para el formulario "dejar Comentario"
+
+function cargaPorContenido() {
+    let xhr = new XMLHttpRequest(),
+        url = 'formulario.html';
+
+    xhr.open('GET', url, true);
+
+    xhr.onload = function () {
+        //xhr.responseText
+        document.querySelector('#formulario').innerHTML = xhr.responseText;
+    };
+
+    xhr.send();
+}
 

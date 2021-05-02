@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="../css/animation.css">
     <title>AlexelcapoImages</title>
     <link href="../css/estilo.css" rel="stylesheet" />
+    <script src="../script/script.js"></script>
 
 </head>
 
@@ -101,30 +102,14 @@
                     "Favoritos"</button></em>
 
             <h2><a href="login.html"> Debes estar logueado para dejar un comentario </a></h2>
-
-            <fieldset>
-                <legend>Deja tu comentario:</legend>
-                <form>
-
-
-                    <label for="comentario">Texto: </label>
-                    <p></p>
-                    <textarea name="comentario" id="comentario" required maxlength="500" rows="4" cols="50"></textarea>
-
-                    <p>
-                        <label for="enviar1"></label>
-                        <input type="submit" name="enviar" id="enviar1" value="Enviar">
-                        <input type="reset">
-                    </p>
-                </form>
-            </fieldset>
-
+            <div id="formulario">
+            <button onclick="cargaPorContenido();">Cargar</button>
+            </div>
         </section>
 
     </section>
     <footer>
-        <p>Copyright <time datetime="2021">2021</time> <a
-                href="jbs@gmail.com">Jesus Bernabeu</a></p>
+        <p>Copyright <time datetime="2021">2021</time> <a href="jbs@gmail.com">Jesus Bernabeu</a></p>
         <p><a href="acerca.html" class="link">Mas informacion</a></p>
         <button class="boton_personalizado" role="link" onclick="window.location='ruta.html'">Inicio</button>
     </footer>
