@@ -18,9 +18,14 @@
     <title>AlexelcapoRutas</title>
     <link href="../css/estilo.css" rel="stylesheet" />
     <script src="../script/script.js"></script>
+    <script>
+        if (!sessionStorage['pcw']) {
+            location.href = "index.html";
+        }
+    </script>
 </head>
 
-<body>
+<body onload="comprobLog();" data-pagina="nueva">
     <header>
 
             <a href="index.html">
@@ -33,84 +38,19 @@
             </a>
         </div>
         </header>
-    <nav>
-        <input type="checkbox" id="ckbMenu">
-        <ul>
-            <li><label for="ckbMenu">&equiv;</label></li>
-            <li>
-                <a href="index.html" class="icon-bank">
-                    Inicio
-                </a>
-            </li>
-            <li>
-                <a href="buscar.html" class="icon-search">
-                    Buscar
-                </a>
-            </li>
-            <li>
-                <a href="nueva.html" class="icon-upload">
-                    Nueva Ruta
-                </a>
-            </li>
-            <li>
-                <a href="#" class="icon-logout">
-                    Logout
-                </a>
-            </li>
-            <li>
-                <a href="login.html" class="icon-login">
-                    Login
-                </a>
-            </li>
-            <li>
-                <a href="registro.html" class="icon-paper-plane">
-                    Registro
-                </a>
-            </li>
-        </ul>
-    </nav>
+        <nav>
+            <input type="checkbox" id="ckbMenu">
+            <ul id="menu">
+                <li><label for="ckbMenu">&equiv;</label></li>
+                <li><a href="buscar.html">Buscar<span class="icon-search"></span><span>Buscar</span></a></li>
+                <li><a href="index.html">Inicio<span class="icon-bank"></span><span>Inicio</span></a></li>
+
+            </ul>
+        </nav>
     <section>
         <h2>Nueva ruta</h2>
         <div>
 
-            <!--
-            <form action="index.html">
-                <fieldset>
-                    <p>
-                        <label for="nombre">Titulo: </label>
-                        <input type="text" autofocus name="nombre" id="nombre" required maxlength="150">
-                    </p>
-
-
-                    <label for="desc">Descripción: </label>
-                    <p></p>
-                    <textarea name="desc" id="desc" required maxlength="300" cols="50" rows="10"></textarea>
-                    <br>
-
-                    <p>
-                        <label for="dificultad">Dificultad: </label>
-                        <input type="number" name="dificultad" id="dificultad" value=1 max="5" min="1">
-                    </p>
-                    <p>
-                        <label for="duracion">Duración de la Ruta: </label>
-                        <input type="number" name="duracion" id="duracion" required value="0.25" step="0.25" min ="0.25" max="10" >
-                    </p>
-
-                    <p>
-                        <label for="fotoRutas">Foto: </label>
-                        <input type="file" name="fotoRutas" id="fotoRutas" required >
-                    </p>
-                    <input type="image" name="rutas" id="rutas2" alt="ruta" src="descarga.jpeg">
-                    <button>Elimiar ruta</button>
-
-                    <p>
-                        <label for="enviar1"></label>
-                        <input type="submit" name="enviar" id="enviar1" value="Enviar">
-                        <input type="reset">
-                    </p>
-                </fieldset>
-            </form>
-            -->
             <section>
                 <h2>
                     Dar de alta una foto:

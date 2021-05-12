@@ -18,9 +18,14 @@
     <title>AlexelcapoRutas</title>
     <link href="../css/estilo.css" rel="stylesheet" />
     <script src="../script/script.js"></script>
+    <script>
+        if (sessionStorage['pcw'] != null) {
+            location.href = 'index.html';
+        }
+    </script>
 </head>
 
-<body>
+<body onload="comprobLog();" data-pagina="login">
     <header>
 
         <a href="index.html">
@@ -33,43 +38,18 @@
             </a>
         </div>
     </header>
+
     <nav>
         <input type="checkbox" id="ckbMenu">
-        <ul>
+        <ul id="menu">
             <li><label for="ckbMenu">&equiv;</label></li>
-            <li>
-                <a href="index.html" class="icon-bank">
-                    Inicio
-                </a>
-            </li>
-            <li>
-                <a href="buscar.html" class="icon-search">
-                    Buscar
-                </a>
-            </li>
-            <li>
-                <a href="nueva.html" class="icon-upload">
-                    Nueva ruta
-                </a>
-            </li>
-            <li>
-                <button onclick="hacerLogout();">Logout</button>
-                <a href="#" class="icon-logout">
-                    Logout
-                </a>
-            </li>
-            <li>
-                <a href="login.html" class="icon-login">
-                    Login
-                </a>
-            </li>
-            <li>
-                <a href="registro.html" class="icon-paper-plane">
-                    Registro
-                </a>
-            </li>
+
+            <li><a href="buscar.html">Buscar<span class="icon-search"></span><span>Buscar</span></a></li>
+            <li><a href="index.html">Inicio<span class="icon-bank"></span><span>Inicio</span></a></li>
+
         </ul>
     </nav>
+
     <section>
         <h2>Identifícate con tus datos</h2>
         <div>

@@ -1,3 +1,4 @@
+var universalURL = "";
 function comprobar() {
     var frm = document.querySelectorAll("form")[0];
     if (frm.ckbGuardar.checked) { // Si se ha marcado guardar datos ...
@@ -156,15 +157,22 @@ function hacerLogin(frm) {
     xhr.onload = function () {
         //console.log(xhr.responseText);
         let usu = JSON.parse(xhr.responseText);
-        console.log(usu);
-        sessionStorage['pcw'] = xhr.responseText;
+        msg = usu.ultimo_acceso;
+        if (usu.RESULTADO == "OK"){
+            console.log(usu);
+            sessionStorage['pcw'] = xhr.responseText;
+            console.log(usu.ultimo_acceso);
+            mostrarMensajeLoginBien(msg);
+        }
+        else
+            mostrarMensajeLoginBad();
+
     };
 
     xhr.send(fd);
 
     return false;
 }
-
 
 function hacerLogout() {
 
@@ -311,7 +319,7 @@ function comprobLog() {
         usu,
         fulano,
         htmlFulano = '';
-    if (!sessionStorage['pcw'] || sessionStorage['pcw']==null ) { //Si NO esta logueado
+    if (!sessionStorage['pcw'] || sessionStorage['pcw'] == null) { //Si NO esta logueado
         html += '<li><a href="registro.html">Registro<span class="icon-register"></span><span>Registro</span></a></li>';
         html += '<li><a href="login.html">Login<span class="icon-login"></span><span>Login</span></a></li>';
     }
@@ -515,7 +523,7 @@ function ruta() {
                 document.querySelector('#file-foto').alt = 'fotos/' + e.descripcion;
                 document.querySelector('#title-foto').innerHTML = e.nombre;
                 document.querySelector('#numComentarios-foto').innerHTML = e.ncomentarios;
-                document.querySelector('#autor-foto').innerHTML = '<a href="buscar.html?l=' + e.login + '">' + e.login + '<img src="fotos/usuarios/' + e.foto_autor +'" width="20"></a>';
+                document.querySelector('#autor-foto').innerHTML = '<a href="buscar.html?l=' + e.login + '">' + e.login + '<img src="fotos/usuarios/' + e.foto_autor + '" width="20"></a>';
 
 
                 aux += `<span class="">Dificultad: </span><span id="dificultad-foto">${e.dificultad}</span>`;
@@ -741,4 +749,304 @@ function numeroDePaginas() {
         function (response) {
             console.log('ERROR');
         });
+}
+
+
+function recogerBusqueda(pagina) {
+    if (location.search.substring(0) != '') { //si pasan algo por parametro
+        //console.log("hola123 " +location.search.substring(0));
+        let parametro = location.search.substring(3),
+            url = 'api/rutas/?',
+            aux = [],
+            aux2 = [],
+            aux3 = '';
+
+        console.log("que sale?: " + parametro);
+        console.log(location.search.substring(1));
+        aux = location.search.substring(1).split('=');
+        console.log(aux[0]);
+        if (aux[0] == 'l') {
+            url += `l=${parametro}`;
+            document.querySelector('#login').value = parametro;
+        }
+        else if (aux[0] == 'd') {
+            url += `d=${parametro}`;
+            aux2 = parametro.split("%20");
+            for (let i = 0; i < aux2.length; i++) {
+                aux3 += aux2[i];
+                aux3 += ' ';
+            }
+            document.querySelector('#descripcion').value = aux3;
+        }
+
+        universalURL = url;
+        buscar();
+    }
+    return false;
+}
+
+function buscarLOGorNot(pagina) {
+    if (sessionStorage['pcw'] != null) { //Si el usuario SI esta logueado
+        hacerBusquedaLOG(pagina);
+    }
+    else {
+        hacerBusqueda(pagina); //no esta logueado.
+    }
+}
+
+
+function hacerBusqueda(pagina) {
+    let xhr = new XMLHttpRequest();
+    universalURL += '&pag=' + pagina + '&lpag=6';
+    xhr.open('GET', universalURL, true);
+    xhr.onload = function () {
+        let r = JSON.parse(xhr.responseText);
+        if (r.RESULTADO == 'OK') {
+            console.log("Peticion realizada con exito.");
+            let html = '';
+            r.FILAS.forEach(function (e, idx, v) {
+                html += `
+                <article>
+                <h3>Ruta nº ${e.id}</h2>
+                <h2>${e.nombre}</h2>
+                            <a href="ruta.html?${e.id}"><img src="fotos/rutas/${e.imagen}" alt="Foto de la ruta ${e.id}"></a>
+                                <figcaption>${e.texto_imagen}</figcaption>
+                            </img>
+                            <p>Dificultad: ${e.dificultad}</p>
+                    <footer>
+                        <p>Autor: <a href="buscar.html?${e.login}">${e.login} <img class="imgUsuPerfil" src="fotos/usuarios/${e.foto_autor}"></img></a>
+                            <p> <time datetime=${e.fecha_hora}">Fecha: ${e.fecha_hora}</time></p>
+                    </footer>
+                </article >`;
+
+            });
+
+            document.querySelector('#fotos-buscar').innerHTML = html;
+            location.href = "#results";
+        }
+    };
+    xhr.send();
+    return false;
+}
+
+
+function hacerBusquedaLOG(pagina) {
+    let xhr = new XMLHttpRequest(),
+        usu = JSON.parse(sessionStorage['pcw']),
+        auth = usu.login + ':' + usu.token;
+    universalURL += '&pag=' + pagina + '&lpag=6';
+    xhr.open('GET', universalURL, true);
+    xhr.onload = function () {
+        let r = JSON.parse(xhr.responseText);
+        if (r.RESULTADO == 'OK') {
+            console.log("Peticion realizada con exito.");
+            let html = '';
+            r.FILAS.forEach(function (e, idx, v) {
+                html += `
+                <article>
+                <h3>Ruta nº ${e.id}</h2>
+                <h2>${e.nombre}</h2>
+                            <a href="ruta.html?${e.id}"><img src="fotos/rutas/${e.imagen}" alt="Foto de la ruta ${e.id}"></a>
+                                <figcaption>${e.texto_imagen}</figcaption>
+                            </img>
+                            <p>Dificultad: ${e.dificultad}</p>
+                    <footer>
+                        <p>Autor: <a href="buscar.html?${e.login}">${e.login} <img class="imgUsuPerfil" src="fotos/usuarios/${e.foto_autor}"></img></a>
+                            <p> <time datetime=${e.fecha_hora}">Fecha: ${e.fecha_hora}</time></p>
+                    </footer>
+                </article >`;
+
+            });
+
+            document.querySelector('#fotos-buscar').innerHTML = html;
+            location.href = "#results";
+        }
+    };
+    xhr.setRequestHeader('Authorization', auth);
+    xhr.send();
+    return false;
+}
+
+function paginacionBuscar() {
+
+    var totalPaginas;
+    universalURL += '&pag=0&lpag=6';
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', universalURL, true);
+    xhr.onload = function () {
+        //console.log(xhr.responseText);
+        let r = JSON.parse(xhr.responseText);
+        if (r.RESULTADO == 'OK') {
+            console.log(r.TOTAL_COINCIDENCIAS);
+            totalPaginas = r.TOTAL_COINCIDENCIAS / 6;
+            totalPaginas = Math.ceil(totalPaginas);
+            document.querySelector('#maxPag').innerHTML = totalPaginas;
+        }
+    };
+    xhr.send();
+}
+
+function buscar() {
+    let url = 'api/rutas?',
+        titulo = '',
+        descripcion = '',
+        login = '',
+        etiquetas = '',
+        ordenSearch = '',
+        ordenSearchAsc = '';
+
+    titulo = document.querySelector("#titulo").value;
+    if (titulo != '') {
+        url += `t=${titulo}`;
+    }
+    descripcion = document.querySelector("#descripcion").value;
+    if (descripcion != '') {
+        if (titulo != '') {
+            url += '&';
+        }
+        url += `d=${descripcion}`;
+    }
+    login = document.querySelector("#login").value;
+    if (login != '') {
+        if (titulo != '' || descripcion != '') {
+            url += '&';
+        }
+        url += `l=${login}`;
+    }
+    ordenSearch = document.querySelector("#orden-search").value;
+    ordenSearchAsc = document.querySelector("#orden-search-asc").value;
+    if (ordenSearch != '') {
+        if (titulo != '' || descripcion != '' || login != '' || etiquetas != '') {
+            url += '&';
+        }
+        url += `op=${ordenSearch}-${ordenSearchAsc}`;
+    }
+    //url += `t=${titulo}&d=${descripcion}&l=${login}&e=${etiquetas}&op=${ordenSearch}-${ordenSearchAsc}`;
+    universalURL = url;
+    //document.querySelector('#formBuscar').reset();
+    paginacionBuscar();
+    buscarLOGorNot(0);
+    return false;
+}
+
+function mostrarMensajeLoginBad() {
+    let div = document.createElement('div'),
+        html;
+
+    div.id = 'msj-modal';
+    html = `<article>
+                <h2>ERROR AL INICIAR SESION</h2>
+                <footer>
+                    <button onclick="document.querySelector('#msj-modal').remove();">Cerrar</button>
+                </footer>
+                </article>`;
+
+    div.innerHTML = html;
+
+    document.body.appendChild(div);
+}
+
+function mostrarMensajeLoginBien(ultimo_acceso) {
+    let div = document.createElement('div'),
+        html;
+
+    div.id = 'msj-modal';
+    html = `<article>
+                <h2>Acceso correcto</h2>
+                <p>Ultimo acceso: `+ ultimo_acceso +`</p>
+                <footer>
+                    <button onclick="document.querySelector('#msj-modal').remove();">Cerrar</button>
+                </footer>
+                </article>`;
+
+    div.innerHTML = html;
+
+    document.body.appendChild(div);
+}
+
+function comparaPWD() { //check if passwords are match
+    //different password
+    if (document.querySelector('#pass').value != document.querySelector('#pass2').value) {
+        document.querySelector('#mensaje-pass').innerHTML = 'Las contraseñas no coinciden';
+        return false;
+    }//Same password
+    else {
+        document.querySelector('#mensaje-pass').innerHTML = '';
+        return true;
+    }
+}
+
+function compruebaLogin(inp) { //check if the username is available
+    var usuario = inp.value;
+    var url = 'api/usuarios/' + usuario;
+    fetch(url).then(
+        //TODO OK:
+        function (response) {
+            if (!response.ok) {
+                response.json().then(function (datos) {
+                    console.log(datos);
+                });
+                return;
+            }
+
+            response.json().then(function (datos) {
+                if (datos.DISPONIBLE == true) {
+                    console.log('disponible');
+                    document.querySelector('#mensaje-login').innerHTML = '<span class="esDisponible">AVAILABLE</span>';
+                    document.querySelector('#mensaje-login').style.color = "green";
+                    return true;
+                }
+                else {
+                    console.log('no disponible');
+                    document.querySelector('#mensaje-login').innerHTML = 'UNAVAILABLE';
+                    document.querySelector('#mensaje-login').style.color = "red";
+                    return false;
+                }
+            });
+        },
+        //TODO MAL:
+        function (response) {
+            console.log('ERROR');
+        });
+}
+function registro(formulario) {
+    //nombre de atributos: login,nombre,email, pwd, pwd2
+    var pwdOk = false;
+    var loginOk = false;
+
+    if (comparaPWD() == true) {
+        pwdOk = true;
+    }
+
+
+    if (pwdOk == true && loginOk == true) {
+        var url = 'api/usuarios/';
+        fd = new FormData(formulario);
+        fetch(url, { 'method': 'POST', 'body': fd }).then(
+            //TODO OK:
+            function (response) {
+                if (!response.ok) {
+                    response.json().then(function (datos) {
+                        console.log(datos);
+                    });
+
+                }
+                console.log( response);
+                response.json().then(function (datos) {
+                    //console.log(datos);
+                    console.log('registrado');
+                    //sessionStorage.setItem('pcw', JSON.stringify(datos));
+                    formulario.reset();
+                    //mostrarMensaje('You have been successfully registered!');
+                    mostrarMensajeLoginBien("correcto");
+                    //location.href="login.html";
+                });
+            },
+            //TODO MAL:
+            function (response) {
+                console.log('ERROR');
+            });
+        return false;
+    }
+    return false;
 }

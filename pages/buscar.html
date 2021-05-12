@@ -37,8 +37,7 @@
         <input type="checkbox" id="ckbMenu">
         <ul id="menu">
             <li><label for="ckbMenu">&equiv;</label></li>
-            <li>
-                <a href="index.html">Inicio<span class="icon-bank"></span><span>Inicio</span></a>
+            <li><a href="index.html">Inicio<span class="icon-bank"></span><span>Inicio</span></a></li>
 
         </ul>
     </nav>
@@ -46,48 +45,57 @@
     <section>
         <h2>Búsqueda de rutas</h2>
         <form action="index.html">
+            <div>
+                <p>
+                <label for="titulo">Titulo</label>
+                <input type="text" name="titulo" id="titulo" placeholder="titulo" maxlength="100" autofocus>
+                </p>
+                <p>
+                <label for="descripcion">Descripción</label>
+                <textarea name="descripcion" id="descripcion" placeholder="descripcion" rows="2" cols="23"></textarea>
+</p>
+<p>
+                <label for="login">Autor</label>
+                <input type="text" name="login" id="login" placeholder="nombre del autor">
+</p>
+<p>
+                    <label for="dificultad-desde">Dificultad desde: </label>
+                    <input type="number" name="dificultad-desde" id="dificultad-desde" value=0>
 
-            <p>
-                <label for="titulo">Titulo: </label>
-                <input type="text" autofocus name="titulo" id="titulo">
-            </p>
-            <p>
-                <label for="descripcion">Descripción: </label>
-                <input type="text" name="descripcion" id="descripcion">
-            </p>
-            <p>
-                <label for="autor">Autor: </label>
-                <input type="text" name="autor" id="autor">
-            </p>
-            <p>
-                <label for="etiquetas">Etiquetas: </label>
-                <input type="text" name="etiquetas" id="etiquetas">
-            </p>
-            <p>
-            </p>
-            <label for="dificultad-desde">Dificultad desde: </label>
-            <input type="number" name="dificultad-desde" id="dificultad-desde" value=0>
+                    <label for="dificultad-hasta">hasta: </label>
+                    <input type="number" name="dificultad-hasta" id="dificultad-hasta" value=5>
+</p>
+<p>
+                    <label for="duración-desde">Duración desde: </label>
+                    <input type="number" name="dificultad-desde" id="duración-desde" value=0>
 
-            <label for="dificultad-hasta">hasta: </label>
-            <input type="number" name="dificultad-hasta" id="dificultad-hasta" value=5>
-            </p>
-            <p>
-                <label for="favoritas">Favoritas: </label>
-                <input type="checkbox" name="favoritas" id="favoritas">
-            </p>
-            <h3>
-                Ordenar:
-            </h3>
-            <button class="boton_personalizado">Ascendentemente</button>
-            <button class="boton_personalizado">Descendentemente</button>
-            <p>
-                <input type="submit" value="Buscar" />
-                <input type="reset" />
-            </p>
+                    <label for="duración-hasta">hasta: </label>
+                    <input type="number" name="duración-hasta" id="duración-hasta" value=5>
+
+</p>
+<p>
+                <label for="orden-search">Ordenar:</label>
+
+                <p>
+                    <label for="orden-search">Favoritas: </label>
+                    <input type="checkbox" name="favoritas" id="orden-search">
+                </p>
+
+                <select name="ordenAsc" id="orden-search-asc">
+                    <option   value="asc">ascendente</option>
+                    <option  value="desc">descendiente</option>
+                </select>
+
+                <br>
+                <input class="boton_personalizado" type="submit" value="Buscar">
+                <input class="boton_personalizado" type="reset" />
+            </div>
+
 
         </form>
-        <h2 id="results">Resultados</h3>
+        <h2 id="results">Ultimas Rutas</h2>
         <div id="fotos-buscar"></div>
+
         <footer>
 
             <div class="paging">
