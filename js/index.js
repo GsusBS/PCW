@@ -498,3 +498,74 @@ function puzzleStart() {
   }
 
 
+// Parte 2021
+var array4x4 = [
+  [0.0, 0.1, 0.2, 0.3],
+  [1.0, 1.1, 1.2, 1.3],
+  [2.0, 2.1, 2.2, 2.3],
+  [3.0, 3.1, 3.2, 3.3]
+];
+
+var array6x6 = [
+  [0.0, 0.1, 0.2, 0.3, 0.4, 0.5],
+  [1.0, 1.1, 1.2, 1.3, 1.4, 1.5],
+  [2.0, 2.1, 2.2, 2.3, 2.4, 2.5],
+  [3.0, 3.1, 3.2, 3.3, 3.4, 3.5],
+  [4.0, 4.1, 4.2, 4.3, 4.4, 4.5],
+  [5.0, 5.1, 5.2, 5.3, 5.4, 5.5]
+];
+
+var array9x9 = [
+  [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
+  [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8],
+  [2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8],
+  [3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8],
+  [4.0, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8],
+  [5.0, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8],
+  [6.0, 6.1, 6.2, 6.3, 6.4, 6.6, 6.6, 6.7, 6.8],
+  [7.0, 7.1, 7.2, 7.3, 7.4, 7.7, 7.6, 7.7, 7.8],
+  [8.0, 8.1, 8.2, 8.3, 8.4, 8.8, 8.6, 8.7, 8.8]
+];
+
+function inicioprueba() {
+
+
+  console.log("Antes ", array9x9);
+  randomArray(array9x9);
+  console.log("Despues", array9x9);
+}
+
+function inicio(){
+  var canvas = document.getElementById("myCanvas");
+  var ctx = canvas.getContext("2d");
+  var img2= document.getElementById("foto");
+  //ctx.drawImage(img,0,0);
+  var img2=[27,32,26,28];
+ var map = ctx.getImageData(0,0,400,400);
+ map.data.set( new Uint8ClampedArray(img2));
+ var imdata = map.data;
+ var arrayF;
+
+ for(var i=0; i<400; i+=1){
+   for(var j=0; j<400; j+=1){
+     arrayF[i][j] = imdata[i][j];
+   }
+ }
+  ctx.putImageData(map,0,0);
+
+}
+
+
+function randomArray(array) {
+
+  for (var i = 0; i < array.length ; i++) {
+    for (var j = 0; j < array[i].length ; j++) {
+      var i1 = Math.floor(Math.random() * (array.length));
+      var j1 = Math.floor(Math.random() * (array.length));
+
+      var temp = array[i][j];
+      array[i][j] = array[i1][j1];
+      array[i1][j1] = temp;
+    }
+  }
+}
