@@ -34,23 +34,46 @@
 
 <section id="sizeOpt">
 
-	<h2>Tabla de puntiaciones</h2>
 
-	<div id="puntuaciones">
+	<h2>PUZZLE GAME</h2>
+	<div id="numTam">
 
-	</div>
+<h4>Zona de la Imagen</h4>
 
-	<form>
-	<label for="dificultad">Dificultad:</label>
-	<select id="dificultad">
-		<option value="4">4x4</option>
-		<option value="6">6x6</option>
-		<option value="8">8x8</option>
 
-	</select>
-	</form>
+	</div >
 
-<button id="Jugar" onclick="window.location.href='juego.html'" class="btn">Empezar</button>
+
+	<br>
+	<br>
+	<!-- Zona de Juego-->
+	<h4>Zona del puzzle</h4>
+	<canvas id="myCanvas" width="360" height="360" style="margin:auto;border:3px solid #000000;" ></canvas> <!-- Zona de Juego-->
+
+
+	<div id="btnStart" ></div>
+	<button  onclick="inicioprueba()" class="btn">Random</button>
+
+	<script>
+		function inicioprueba() {
+
+				var arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+				console.log(arr1);
+				randomArray(arr1);
+				console.log(arr1);
+			}
+
+
+			function randomArray(array) {
+
+				for (var i = arrya.length - 1; i > 0; i--) {
+					var j = Math.floor(Math.random() * (i + 1));
+					var temp = array[i];
+					array[i] = array[j]:
+					array[j] = temp;
+				}
+			}
+	</script>
 
 </section>
 

@@ -1,99 +1,81 @@
-<!DOCTYPE html> 
-<html lang="es"> 
-    <head> 
-        <!-- VALIDADA -->
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="generator" content="Sublime-text" /> 
-        <meta name="author" content="Jesús Bernabeu Sáez" /> 
-        <meta name="keywords" content="HTML5, web" /> 
-        <meta name="description" content="pagina de busqueda de AlexelcapoRutas" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/fontello-embedded.css">
-        <link rel="stylesheet" type="text/css" href="css/fontello.css">
-        <link rel="stylesheet" type="text/css" href="css/fontello-codes.css">
-        <link rel="stylesheet" type="text/css" href="css/fontello-ie7-codes.css">
-        <link rel="stylesheet" type="text/css" href="css/fontello-ie7.css">
-        <link rel="stylesheet" type="text/css" href="css/animation.css">
-        <title>AlexelcapoRutas</title>
-        <link href="estilo.css" rel="stylesheet"/>
-    </head>
-    <body>
-        <header>
-            
-            <a href="index.html">
-            <img id="logo" src="logo.png" alt="Logo">
-        </a>
-        <div>
-            <a href="index.html">
-                <h1>AR - AlexelcapoRutas</h1>
-                <p>Tu página de rutas</p>
-            </a>
-        </div>
-        </header>
-        <nav>
-            <input type="checkbox" id="ckbMenu">
-            <ul>
-                <li><label for="ckbMenu">&equiv;</label></li>
-           <li>
-                <a href="index.html" class="icon-bank">
-                    Inicio
-                </a>
-            </li>
-            <li>
-                <a href="buscar.html" class="icon-search">
-                    Buscar
-                </a>
-            </li>
-            <li>
-                <a href="nueva.html" class="icon-upload">
-                    Nueva Ruta
-                </a>
-            </li>
-            <li>
-                <a href="#" class="icon-logout">
-                   Logout
-                </a>
-            </li>
-            <li>
-                <a href="login.html" class="icon-login">
-                   Login
-                </a>
-            </li>
-            <li>
-                <a href="registro.html" class="icon-paper-plane">
-                    Registro
-                </a>
-            </li>
-        </ul>
-        </nav>
-        <section>
-            <h2>Información de los alumnos:</h2>
-            Esta es la primera práctica de la asignatura Programación del cliente web del segundo año de la titulación del Grado en Ingeniería Multimedia.
-            <ul>
-                <li>Nombre: <em>Jesus Bernabeu Saez</em>
-                </li>
-                <li>Dni: <em>48558117-B</em>
-                </li>
-                <li>Correo <em>GsusBSr@gmail.com</em>
-                </li>
-                <li>Grupo: <em>Lunes 19:00-21:00</em>
-                </li>
-            </ul>
-            
-            </ul>
-            
-            <p>Partes no desarrolladas:</p>
-            <p>El diseño adaptable es muy mejorable ya que tiene algunos fallos a la hora de hacerlo pequeño, el css puede ser mejorado tambien para que quede mas moderno. No se ha implementado el autofocus en el input "titulo" de ruta.html ya que no se ha considerado oportuno pues no todo el mundo puede querer añadir un comentario.
-            </p>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<!-- La cabecera -->
 
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="Recursos/General.css">
+    <link rel="stylesheet" type="text/css" href="css/iconos-fonts.css">
+    <script src="js/general.js"></script>
+    <title>SUDOKU GAME</title>
+    <link rel="stylesheet" href="css/sytle.css">
+</head>
+
+<body>
+
+
+    <header class="header" id="header"> <!--Cabecera-->
+		<div class="logo" onclick="window.location.href='index.html'">
+
+
+					<img alt="logo sudoku" src="./Fotos/sudokuLogo.png" width="100">
+					<h1>SUDOKU GAME</h1>
+
+
+        </div>
+
+
+
+	</header>
+
+<section>
+<div>
+
+    <div class="acercaHead">
+         Pr&aacute;ctica 3 - Programaci&oacute;n del Cliente Web<br>
+         2º curso de Ingenier&iacute;a Multimedia
+   <br><br>
+
+
+
+        <h2>Jesus Bernabeu Saez</h2>
+        <section>
+            <h3>
+                DNI: <br>
+                Email: <br>
+                Grupo de pr&aacute;cticas: Jueves de 19:00-21:00
+            </h3>
         </section>
 
-        <footer>
-        <p>Copyright <time datetime="2021">2021</time> <a href="jbs44@alu.ua.com">Jesus Bernabeu</a></p>
-        <p><a href="acerca.html" class="link" >Mas informacion</a></p>
-         <button class="boton_personalizado" role="link" onclick="window.location='acerca.html'">Inicio</button>
-        </footer>
-    </body> 
+            <h2>Ander Ichaso</h2>
+            <section>
+            <h3>
+                DNI: 78953614L<br>
+                Email: aiih1@alu.ua.es<br>
+                Grupo de pr&aacute;cticas: Jueves de 19:00-21:00
+            </h3>
+        </section>
+<br><br>
+
+
+        <br><br>
+        <p> Apuntes para el profesor: </p>
+        <p>Mostrar sudoku: para mostrar el sudoku una vez iniciado solo se tiene que poner el raton por encima del  juego. </p>
+        <p>Cronometro: está implementado, solo que no avanza en el tiempo. </p>
+        </div>
+
+</div>
+</section>
+
+
+    <footer>
+        <!-- Pie -->
+
+        <p>&copy;<strong>Ander Garykoitz Ichaso Hurtado, Jesus Bernabeu Saez</strong> <time datetime="2021-05"> 2021</time></p>
+        <a href="#header"> <img src="./Fotos/arrow.png" alt="PI-Logo" height="50" /></a>
+        <button id="Index" onclick="window.location.href='index.html'" class="btn">Volver</button>
+    </footer>
+
+</body>
+
 </html>
-
-
