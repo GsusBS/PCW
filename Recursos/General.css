@@ -18,7 +18,7 @@
 
 .acercaHead{
   text-align: center;
-  
+
 }
 
 body {
@@ -29,7 +29,7 @@ body {
   background-color: #fff;
   min-width: 320px;
   max-width: 1800px;
-  margin: 0 auto ; 
+  margin: 0 auto ;
 
 }
 
@@ -49,7 +49,7 @@ body>header>div>strong>a{
 	font-family: 'Noto Sans', sans-serif;
 	font-size: 14px;
 	text-decoration:none;
-	
+
 }
 
 
@@ -144,9 +144,9 @@ body > section {							/* Content = body > section*/
 body > section > div {
     display: flex;
     flex-direction: column;
-	
+
 }
-  
+
 
 body > section >div> article {
     margin: .1em;
@@ -155,31 +155,31 @@ body > section >div> article {
     flex-direction: column;
 	border: 1px solid #6C33FF;
 	background-color: #E8EEFC;
-	
+
  }
- 
+
  .articulo:hover {
   background-color:#0174DF;
   height: 100%;
   color: white;
-	
+
  }
 
- 
+
  .container{
 	position:relative;
 	height:100%;
-	
+
  }
  .container>a>img{
 	 vertical-align:middle;
  }
- 
+
 .listarticulo{
 
     list-style: none;
  }
-  
+
 .overlay {
   position: absolute;
   bottom: 100%;
@@ -197,11 +197,11 @@ body > section >div> article {
   display: absolute;
   width: 100%;
 
-  
+
 }
 
 .text{
-	
+
   color: white;
   font-weight: 300;
   overflow: hidden;
@@ -211,13 +211,13 @@ body > section >div> article {
 	height: 80%;
 	width: 50%;
 	margin: -15% 0 0 -25%;
-	
+
 }
 
 
  .content>div> article> footer {
-    
-    
+
+
     padding: .5em 0;
     display:flex;
     flex-direction: row;
@@ -259,14 +259,14 @@ body > section >div> article {
 }
 .content > footer > p > a > span:hover{
     cursor: pointer;
-	
+
 }
-  
+
 
 .busquedainit{
 	text-align:center;
 	margin: 1em;
-	
+
 	white-space:nowrap;
 	position:relative;
 }
@@ -292,13 +292,13 @@ body > section >div> article {
 		text-align: center;
         padding: .2em; /*-- Pedro -- he puesto el pading a 0.2*/
         margin: .8em .8em;
-        
+
         width: 60%;
 
         /*-- Pedro -- eliminado el RegForm<input */
         border: 1px solid #434343;
         border-radius: 2px;
-        
+
         margin-top: .1em;
         background-color: #fff;
         color: #000;
@@ -366,7 +366,7 @@ body > section >div> article {
   }
 
   #botonArchivo:hover{ /*-- Pedro --*/
-    	
+
 	    background-color:hsl(184, 42%, 59%);
   }
 
@@ -378,7 +378,7 @@ body > section >div> article {
     display:flex;
     flex-direction:colum;
     width: 200;
-  
+
   }
 
   .foto > img{
@@ -514,8 +514,8 @@ body>footer>p{
 
 
 @media all and (min-width: 480px){
-  
-  
+
+
    body>section>div{
         display: flex;
         flex-wrap: wrap;
@@ -552,20 +552,20 @@ body>footer>p{
     }
 	body>nav{
 	text-align:center;
-	
-	
-	margin-right:1em;		
+
+
+	margin-right:1em;
 	}
-	
+
   select{
     width: 8em;
-    
+
   }
-  
+
   select>option{
     font-size: 2em;
   }
-    
+
 }
 
 
@@ -580,8 +580,8 @@ body>footer>p{
       flex-grow: 1;
       margin: .5em;
     }
-	
-	
+
+
     body > header > div > h1{
       margin-top: -0.2em;
       text-align: center;
@@ -596,7 +596,7 @@ body>footer>p{
 	body>section>div>form{
 		width: 40%;
 	}
-	
+
 
 }
 
@@ -630,7 +630,7 @@ body>footer>p{
   body>nav>ul>li{
     flex-wrap: wrap;
   }
-  
+
   body>nav>ul>li>a>span{
     display: none;
   }
@@ -639,3 +639,28 @@ body>footer>p{
 
 
 
+
+#msj-modal>article{
+    width: 20em;
+    border: 1px solid #000;
+    text-align: center;
+    background-color: white;
+
+    position: relative;
+    top: 5em;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#msj-modal>article>h2{
+  margin: 0;
+  padding: 0.5em;
+  background-color: green;
+  color: white;
+}
+
+
+#msj-modal>article>footer{
+  margin: 0.5em;
+
+}

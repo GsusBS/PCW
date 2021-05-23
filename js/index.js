@@ -1,3 +1,40 @@
+function hacerLogin(frm) {
+  var dificultad=frm.dificultad.value,
+      imagen = frm.imagen.value;
+  if (dificultad != "" && imagen != ""){
+    sessionStorage['dificultad'] = frm.dificultad.value;
+    sessionStorage['imagen'] = frm.imagen.value;
+
+    document.location.href = 'juego.html';
+    return true;
+  }
+  else{
+    sessionStorage['dificultad'] = "";
+    sessionStorage['imagen'] = "";
+    mostrarMensaje();
+    return false;
+  }
+}
+//https://www.youtube.com/watch?v=llWqMUohBYU 1:15 como hacer el mensaje modal
+
+function mostrarMensaje() {
+  let div = document.createElement('div'),
+    html;
+
+  div.id = 'msj-modal';
+  html = `<article>
+                <h2>Tienes que seleccionar ambos campos para empezar el juego</h2>
+                <footer>
+                    <button onclick="document.querySelector('#msj-modal').remove();">Cerrar</button>
+                </footer>
+                </article>`;
+
+  div.innerHTML = html;
+
+  document.body.appendChild(div);
+}
+
+
 
 
 function puzzleStart() {
