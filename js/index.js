@@ -1,14 +1,22 @@
 function prepararCanvas() {
 
-  console.log(sessionStorage.imagen);
-  getImageCanvas(sessionStorage.imagen);
+  let cv = document.querySelector('#cv01');
+  let cv2 = document.querySelector('#cv02');
 
+  cv.width = 480;
+  cv.height = 360;
+
+  cv2.width = 480;
+  cv2.height = 360;
+
+  getImageCanvas(1);
+  getImageCanvas(2);
 
 }
 
-function getImageCanvas(imagen) {
+function getImageCanvas(canvas) {
   let xhr = new XMLHttpRequest(),
-    url = 'api/imagenes/' + imagen;
+    url = 'api/imagenes/' + sessionStorage.imagen;
   console.log(url);
 
   xhr.open('GET', url, true);
@@ -19,11 +27,12 @@ function getImageCanvas(imagen) {
       console.log("Peticion realizada con exito.");
       let img = new Image();
       img.onload = function () {
-        let cv = document.querySelector('#cv01');
-        cv.width = 480;
-        cv.height = 360;
-        ctx = cv.getContext('2d');
-        ctx.drawImage(img, 0, 0);
+        let cv = document.querySelector('#cv0'+canvas),
+        ctx = cv.getContext('2d'),
+        factor = cv.width / img.width,
+          posY = (cv.height - cv.height * factor)/2;
+
+        ctx.drawImage(img, 0, posY, cv.width, cv.height *factor);
 
       };
       img.src = "imagenes/" + v.FILAS[0].fichero;
