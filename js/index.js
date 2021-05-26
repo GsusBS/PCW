@@ -1,25 +1,15 @@
 function prepararCanvas() {
-  let cv = document.querySelector('#cv01');
-  ctx = cv.getContext('2d'),
-    factor = 0,
-    img = new Image();
 
-  //esto tendría que funcionar pero no se porque no
-  //img.src = getImageCanvas(sessionStorage.imagen);
-  img.src = "./imagenes/img1.jpg";
-  console.log(img);
-  factor = cv.width / img.width;
-  ctx.drawImage(img, 0, 0, cv.width, document.querySelector('#foto').height * factor);
-  cv.width = 480;
-  cv.height = 360;
+  console.log(sessionStorage.imagen);
+  getImageCanvas(sessionStorage.imagen);
 
 
 }
 
- function getImageCanvas(imagen) {
+function getImageCanvas(imagen) {
   let xhr = new XMLHttpRequest(),
-    url = 'api/imagenes/'+imagen;
-    console.log(url);
+    url = 'api/imagenes/' + imagen;
+  console.log(url);
 
   xhr.open('GET', url, true);
 
@@ -27,9 +17,18 @@ function prepararCanvas() {
     let v = JSON.parse(xhr.responseText);
     if (v.RESULTADO == 'OK') {
       console.log("Peticion realizada con exito.");
+      let img = new Image();
+      img.onload = function () {
+        let cv = document.querySelector('#cv01');
+        cv.width = 480;
+        cv.height = 360;
+        ctx = cv.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+      };
+      img.src = "imagenes/" + v.FILAS[0].fichero;
       console.log(v.FILAS[0].fichero)
-       return await v.FILAS[0].fichero;
-    }
+    };
   };
 
   xhr.onerror = function () {
