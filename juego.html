@@ -1,27 +1,27 @@
-
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 <!-- La cabecera -->
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="Recursos/General.css">
-<link rel="stylesheet" type="text/css" href="css/iconos-fonts.css">
-<script src="./js/index.js"></script>
-<script src="./js/general.js"></script>
-<title>PUZZLE</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="Recursos/General.css">
+	<link rel="stylesheet" type="text/css" href="css/iconos-fonts.css">
+	<script src="./js/index.js"></script>
+	<title>PUZZLE</title>
 
 </head>
 
 <body>
-	<header class="header" id="header"> <!--Cabecera-->
+	<header class="header" id="header">
+		<!--Cabecera-->
 		<div class="logo" onclick="window.location.href='acerca.html'">
 
 
-					<img alt="logo sudoku" src="./Fotos/puzzle.png" width="100">
-					<h1>PUZZLE</h1>
+			<img alt="logo sudoku" src="./Fotos/puzzle.png" width="100">
+			<h1>PUZZLE</h1>
 
 
-        </div>
+		</div>
 
 
 
@@ -32,47 +32,53 @@
 
 	<br>
 
-<section id="sizeOpt">
+	<section id="sizeOpt">
 
 
-	<h2>PUZZLE GAME</h2>
-	<div id="numTam">
+		<h2>PUZZLE GAME</h2>
+		<div id="numTam">
 
-<h4>Zona de la Imagen</h4>
-
-
-	</div >
+			<h4>Zona de la Imagen</h4>
 
 
-	<br>
-	<br>
-	<!-- Zona de Juego-->
-	<h4>Zona del puzzle</h4>
-	<canvas id="myCanvas" width="360" height="360" style="margin:auto;border:3px solid #000000;" ></canvas> <!-- Zona de Juego-->
+		</div>
 
 
-	<div id="btnStart" ></div>
-	<img id="foto" width="400" height="400" src="Fotos/arrow.png">
-	<button  onclick="inicioprueba()" class="btn">Random</button>
+		<br>
+		<br>
+		<!-- Zona de Juego-->
+		<h4>Zona del puzzle</h4>
+		<!--<canvas id="myCanvas" width="360" height="360" style="margin:auto;border:3px solid #000000;"></canvas>-->
+		<!-- Zona de Juego-->
 
-	<script>
+		<canvas id= "cv01" ></canvas>
+			<button onclick= "cargaImagenCanvas();">Prueba</button>
 
-	</script>
+		<div id="btnStart"></div>
+		<img id="foto">
+		<button onclick="inicioprueba()" class="btn">Random</button>
 
-</section>
+
+	</section>
 
 
 
-	<footer><!-- Pie -->
+	<footer>
+		<!-- Pie -->
 
-	<p>&copy;<strong>Ander Garykoitz Ichaso Hurtado, Pedro Vazquez Tevar</strong> <time datetime="2020-03">| Marzo 2020</time></p>
-	<a href="#header"> <img src="./Fotos/arrow.png" alt="PI-Logo" height="50" /></a>
+		<p>&copy;<strong>Ander Garykoitz Ichaso Hurtado, Jesus Bernabeu Saez</strong> <time datetime="2021-03">| Marzo
+				2021</time></p>
+		<a href="#header"> <img src="./Fotos/arrow.png" alt="PI-Logo" height="50" /></a>
 
-	<button id="Acerca" onclick="window.location.href='acerca.html'" class="btn">Acerca</button>
+		<button id="Acerca" onclick="window.location.href='acerca.html'" class="btn">Acerca</button>
 	</footer>
 
-	<script>inicio();</script>
-	<script>crearBotonStart();</script>
+	<script>
+		prepararCanvas();
+		cargaImagen2();
+		crearBotonStart();
+	</script>
 
 </body>
+
 </html>
