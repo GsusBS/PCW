@@ -3,86 +3,96 @@
 <!-- La cabecera -->
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="Recursos/General.css">
-	<link rel="stylesheet" type="text/css" href="css/iconos-fonts.css">
-	<script src="./js/index.js"></script>
-	<title>PUZZLE</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="Recursos/General.css">
+    <link rel="stylesheet" type="text/css" href="css/iconos-fonts.css">
+    <script src="./js/index.js"></script>
+    <title>PUZZLE</title>
 
 </head>
 
 <body>
-	<header class="header" id="header">
-		<!--Cabecera-->
-		<div class="logo" onclick="window.location.href='acerca.html'">
+    <header class="header" id="header">
+        <!--Cabecera-->
+        <div class="logo" onclick="window.location.href='acerca.html'">
 
 
-			<img alt="logo sudoku" src="./Fotos/puzzle.png" width="100">
-			<h1>PUZZLE</h1>
+            <img alt="logo sudoku" src="./Fotos/puzzle.png" width="100">
+            <h1>PUZZLE</h1>
 
 
-		</div>
-
-
-
-	</header>
+        </div>
 
 
 
-
-	<br>
-
-	<section id="sizeOpt">
-
-		<h2>Tabla de puntiaciones</h2>
-
-		<div id="puntuaciones">
-
-		</div>
-
-		<form onsubmit="return hacerLogin(this);" action="juego.html">
-			<label for="dificultad">Dificultad:</label>
-				<div>
-					<input type="radio" id="dificultad" name="dificultad" value="4x4" >
-					<label for="4x4">4x4</label>
-				</div>
-
-				<div>
-					<input type="radio" id="dificultad" name="dificultad" value="6x6">
-					<label for="6x6">6x6</label>
-				</div>
-
-				<div>
-					<input type="radio" id="dificultad" name="dificultad" value="8x8">
-					<label for="8x8">8x8</label>
-				</div>
-
-			<label for="imagen">Imagen:</label>
-			<select name="imagen">
-				<option name="imagen" id="imagen" value="" selected>selecciona una imagen</option>
-				<option name="imagen" id="imagen" value="1">img1</option>
-				<option name="imagen" id="imagen" value="2">img2</option>
-				<option name="imagen" id="imagen" value="3">img3</option>
-			</select>
-			<div>
-				<input type="reset" value="Limpiar" />
-				<input type="submit" value="Enviar" class="btn"></input>
-			</div>
-		</form>
-
-	</section>
+    </header>
 
 
 
-	<footer>
-		<!-- Pie -->
 
-		<p>&copy;<strong>Ander Garykoitz Ichaso Hurtado, Jesus Bernabeu Saez</strong> <time datetime="2021-03">| Marzo
+    <br>
+
+    <section id="sizeOpt">
+
+        <div id="tablapuntuaciones">
+            <h2>Tabla de puntiaciones</h2>
+
+            <div id="puntuaciones">
+                <table id="tablaPut">
+
+                </table>
+
+            </div>
+        </div>
+        <div id="dificultadyfoto">
+            <form onsubmit="return hacerLogin(this);" action="juego.html">
+                <div id="Imagenes">
+                    <!--<label for="imagen">Imagen:</label>
+                     <select name="imagen">
+						<option name="imagen" id="imagen" value="" selected>selecciona una imagen</option>
+						<option name="imagen" id="imagen" value="1">img1</option>
+						<option name="imagen" id="imagen" value="2">img2</option>
+						<option name="imagen" id="imagen" value="3">img3</option>
+					</select> -->
+                </div>
+                <div id="elegirdificultades">
+                    <label for="dificultad">Dificultad:</label>
+
+                    <input type="radio" id="dificultad" name="dificultad" value="4x4">
+                    <label for="4x4">4x4</label>
+
+                    <input type="radio" id="dificultad" name="dificultad" value="6x6">
+                    <label for="6x6">6x6</label>
+
+                    <input type="radio" id="dificultad" name="dificultad" value="8x8">
+                    <label for="8x8">8x8</label>
+                </div>
+
+
+                <div>
+                    <input type="reset" value="Limpiar" />
+                    <input type="submit" value="Enviar" class="btn"></input>
+                </div>
+            </form>
+        </div>
+
+    </section>
+
+
+
+    <footer>
+        <!-- Pie -->
+
+        <p>&copy;<strong>Ander Garykoitz Ichaso Hurtado, Jesus Bernabeu Saez</strong> <time datetime="2021-03">| Marzo
 				2021</time></p>
-		<a href="#header"> <img src="./Fotos/arrow.png" alt="PI-Logo" height="50" /></a>
+        <a href="#header"> <img src="./Fotos/arrow.png" alt="PI-Logo" height="50" /></a>
 
-		<button id="Acerca" onclick="window.location.href='acerca.html'" class="btn">Acerca</button>
-	</footer>
+        <button id="Acerca" onclick="window.location.href='acerca.html'" class="btn">Acerca</button>
+    </footer>
+    <script>
+        FotosPuzzle();
+        PuntuacionesPuzzle()
+    </script>
 
 
 </body>
