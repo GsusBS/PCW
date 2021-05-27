@@ -1,4 +1,3 @@
-// Parte 2021
 var array4x4 = [
     [0.0, 0.1, 0.2, 0.3],
     [1.0, 1.1, 1.2, 1.3],
@@ -14,6 +13,7 @@ var array6x6 = [
     [4.0, 4.1, 4.2, 4.3, 4.4, 4.5],
     [5.0, 5.1, 5.2, 5.3, 5.4, 5.5]
 ];
+
 
 var array8x8 = [
     [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7],
@@ -52,11 +52,12 @@ function inicioprueba() {
 
 
 
+let cont = 0;
 
-
-
-
-
+function jugadas() {
+    cont++;
+    document.getElementById('cont1').innerHTML = cont;
+}
 
 function regionesCanvas() {
     let div = 4;
@@ -70,6 +71,7 @@ function regionesCanvas() {
     let cv = document.querySelector('#cv01');
 
     cv.onclick = function(evt) {
+        jugadas();
         let x = evt.offsetX,
             y = evt.offsetY,
             ancho = cv.width / div,
@@ -209,8 +211,6 @@ function mostrarMensaje() {
 
     document.body.appendChild(div);
 }
-
-
 
 
 
