@@ -139,14 +139,11 @@ body > section {							/* Content = body > section*/
 	margin-left: 2em;
 	margin-right: 2em;
 
-   /* -- mostrar los canvas uno al lado del otro -- */
-  display: inline-block;
 
 }
 
 body > section > div {
     display: flex;
-    flex-direction: column;
 
 }
 
@@ -155,7 +152,6 @@ body > section >div> article {
     margin: .1em;
     padding: .1em;
     display: flex;
-    flex-direction: column;
 	border: 1px solid #6C33FF;
 	background-color: #E8EEFC;
 
@@ -670,5 +666,11 @@ body>footer>p{
 
 canvas{
   border: 1px solid;
+
+}
+section{
+   /* -- mostrar los canvas uno al lado -- */
+  display: inline-block;
+  vertical-align: top;
 
 }

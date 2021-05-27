@@ -1,4 +1,66 @@
 
+function regionesCanvas() {
+  let div = 4;
+  if (sessionStorage.dificultad == '4x4') {
+    div = 4;
+  }
+  else if (sessionStorage.dificultad == '6x6') {
+    div = 6;
+  }
+  else if (sessionStorage.dificultad == '8x8') {
+    div = 8;
+  }
+  let cv = document.querySelector('#cv01');
+
+  cv.onclick = function (evt) {
+    let x = evt.offsetX,
+        y = evt.offsetY,
+        ancho = cv.width / div,
+        alto = cv.height / div,
+        //funcion matematica que nos de el entero mas proximo menor
+        fila = Math.floor(y / alto);
+        col  = Math.floor(x / ancho);
+
+        console.log(x + ',' + y);
+        console.log(col + ',' + fila);
+
+  };
+
+}
+
+function divisiones() {
+  let div = 4;
+  if (sessionStorage.dificultad == '4x4') {
+    div = 4;
+  }
+  else if (sessionStorage.dificultad == '6x6') {
+    div = 6;
+  }
+  else if (sessionStorage.dificultad == '8x8') {
+    div = 8;
+  }
+  let cv1 = document.querySelector('#cv01'),
+    ctx1 = cv1.getContext('2d');
+  ancho = cv1.width / div;
+  alto = cv1.height / div;
+
+  ctx1.beginPath();
+  ctx1.lineWidth = 2;
+  ctx1.strokeStyle = '#a00';
+
+  for (let i = 1; i < div; i++) {
+    // verticales
+    ctx1.moveTo(i * ancho, 0);
+    ctx1.lineTo(i * ancho, cv1.height);
+    //horizontales
+    ctx1.moveTo(0, i * alto);
+    ctx1.lineTo(cv1.width, i * alto);
+
+  }
+  ctx1.stroke();
+}
+
+
 function prepararCanvas() {
   let xhr = new XMLHttpRequest(),
     url = 'api/imagenes/' + sessionStorage.imagen;
@@ -22,6 +84,8 @@ function prepararCanvas() {
             posY = (cv.height - cv.height * factor) / 2;
 
           ctx.drawImage(img, 0, posY, cv.width, cv.height * factor);
+          divisiones();
+          regionesCanvas()
         });
 
       };
