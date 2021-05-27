@@ -1,3 +1,9 @@
+let cont=0;
+
+function jugadas() {
+  cont++;
+  document.getElementById('cont1').innerHTML = cont;
+}
 
 function regionesCanvas() {
   let div = 4;
@@ -13,6 +19,7 @@ function regionesCanvas() {
   let cv = document.querySelector('#cv01');
 
   cv.onclick = function (evt) {
+    jugadas();
     let x = evt.offsetX,
       y = evt.offsetY,
       ancho = cv.width / div,
