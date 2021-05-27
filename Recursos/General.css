@@ -139,6 +139,9 @@ body > section {							/* Content = body > section*/
 	margin-left: 2em;
 	margin-right: 2em;
 
+   /* -- mostrar los canvas uno al lado del otro -- */
+  display: inline-block;
+
 }
 
 body > section > div {
@@ -662,5 +665,10 @@ body>footer>p{
 
 #msj-modal>article>footer{
   margin: 0.5em;
+
+}
+
+canvas{
+  border: 1px solid;
 
 }

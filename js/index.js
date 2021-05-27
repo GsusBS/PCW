@@ -1,20 +1,5 @@
+
 function prepararCanvas() {
-
-  let cv = document.querySelector('#cv01');
-  let cv2 = document.querySelector('#cv02');
-
-  cv.width = 480;
-  cv.height = 360;
-
-  cv2.width = 480;
-  cv2.height = 360;
-
-  getImageCanvas(1);
-  getImageCanvas(2);
-
-}
-
-function getImageCanvas(canvas) {
   let xhr = new XMLHttpRequest(),
     url = 'api/imagenes/' + sessionStorage.imagen;
   console.log(url);
@@ -27,12 +12,17 @@ function getImageCanvas(canvas) {
       console.log("Peticion realizada con exito.");
       let img = new Image();
       img.onload = function () {
-        let cv = document.querySelector('#cv0'+canvas),
-        ctx = cv.getContext('2d'),
-        factor = cv.width / img.width,
-          posY = (cv.height - cv.height * factor)/2;
+        document.querySelectorAll('canvas').forEach(function (cv) {
 
-        ctx.drawImage(img, 0, posY, cv.width, cv.height *factor);
+          cv.width = 480;
+          cv.height = 360;
+
+          let ctx = cv.getContext('2d'),
+            factor = cv.width / img.width,
+            posY = (cv.height - cv.height * factor) / 2;
+
+          ctx.drawImage(img, 0, posY, cv.width, cv.height * factor);
+        });
 
       };
       img.src = "imagenes/" + v.FILAS[0].fichero;
@@ -45,29 +35,6 @@ function getImageCanvas(canvas) {
   };
 
   xhr.send();
-}
-
-function cargaImagenCanvas() {
-  let cv = document.querySelector('#cv01'),
-    ctx = cv.getContext('2d'),
-    factor
-
-  factor = cv.width / document.querySelector('#foto').width;
-  ctx.drawImage(document.querySelector('#foto'), 0, 0, cv.width, document.querySelector('#foto').height * factor);
-}
-
-function cargaImagen2() {
-  let cv = document.querySelector('#cv01'),
-    ctx = cv.getContext('2d'),
-    cv2 = document.querySelector('#cv02'),
-    ctx2 = cv.getContext('2d'),
-    imgData;
-
-  imgData = ctx.getImageData(0, 0, cv.width, cv.height);
-
-  ctx2.putImageData(imgData, 0, 0)
-  ctx2.drawImage(cv, 0, 0);
-
 }
 
 
