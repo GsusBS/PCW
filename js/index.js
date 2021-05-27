@@ -14,15 +14,24 @@ function regionesCanvas() {
 
   cv.onclick = function (evt) {
     let x = evt.offsetX,
-        y = evt.offsetY,
-        ancho = cv.width / div,
-        alto = cv.height / div,
-        //funcion matematica que nos de el entero mas proximo menor
-        fila = Math.floor(y / alto);
-        col  = Math.floor(x / ancho);
+      y = evt.offsetY,
+      ancho = cv.width / div,
+      alto = cv.height / div,
+      //funcion matematica que nos de el entero mas proximo menor
+      fila = Math.floor(y / alto);
+    col = Math.floor(x / ancho);
 
-        console.log(x + ',' + y);
-        console.log(col + ',' + fila);
+    console.log(x + ',' + y);
+    console.log(col + ',' + fila);
+
+    //pintar la correspondiente region
+    let cv2 = document.querySelector('#cv02'),
+        cv1 = cv,
+        ctx1 =cv1.getContext('2d');
+
+    //la segunda parte que se repite, sería la que habria que poner de otra parte
+    ctx1.drawImage(cv2, col * ancho, fila * alto, ancho, alto, col * ancho, fila * alto, ancho, alto);
+
 
   };
 
@@ -60,8 +69,16 @@ function divisiones() {
   ctx1.stroke();
 }
 
-
 function prepararCanvas() {
+  let cv1 = document.querySelector('#cv01'),
+      ctx1 = cv1.getContext('2d');
+
+  cv1.width = 480;
+  cv1.height = 360;
+
+
+}
+function prepararCanvas2() {
   let xhr = new XMLHttpRequest(),
     url = 'api/imagenes/' + sessionStorage.imagen;
   console.log(url);
@@ -74,31 +91,31 @@ function prepararCanvas() {
       console.log("Peticion realizada con exito.");
       let img = new Image();
       img.onload = function () {
-        document.querySelectorAll('canvas').forEach(function (cv) {
+        let cv2 = document.querySelector('#cv02'),
+          ctx2 = cv2.getContext('2d');
 
-          cv.width = 480;
-          cv.height = 360;
+        cv2.width = 480;
+        cv2.height = 360;
 
-          let ctx = cv.getContext('2d'),
-            factor = cv.width / img.width,
-            posY = (cv.height - cv.height * factor) / 2;
+        let ctx = cv2.getContext('2d'),
+          factor = cv2.width / img.width,
+          posY = (cv2.height - cv2.height * factor) / 2;
 
-          ctx.drawImage(img, 0, posY, cv.width, cv.height * factor);
-          divisiones();
-          regionesCanvas()
-        });
+        ctx.drawImage(img, 0, posY, cv2.width, cv2.height * factor);
+        divisiones();
+        regionesCanvas();
 
-      };
-      img.src = "imagenes/" + v.FILAS[0].fichero;
-      console.log(v.FILAS[0].fichero)
     };
+    img.src = "imagenes/" + v.FILAS[0].fichero;
+    console.log(v.FILAS[0].fichero)
   };
+};
 
-  xhr.onerror = function () {
-    console.log('ERROR');
-  };
+xhr.onerror = function () {
+  console.log('ERROR');
+};
 
-  xhr.send();
+xhr.send();
 }
 
 
