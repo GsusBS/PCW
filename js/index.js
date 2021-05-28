@@ -27,6 +27,7 @@ var array8x8 = [
 
 ];
 
+var nuestroarray = [];
 
 function randomArray(array) {
 
@@ -44,10 +45,14 @@ function randomArray(array) {
 
 function inicioprueba() {
 
+    nuestroarray = array8x8;
 
-    console.log("Antes ", array9x9);
-    randomArray(array9x9);
-    console.log("Despues", array9x9);
+
+    console.log("Antes ", nuestroarray);
+    randomArray(nuestroarray);
+    console.log("Despues", nuestroarray);
+    console.log("8x8", array8x8);
+
 }
 
 
@@ -242,7 +247,13 @@ function FotosPuzzle() {
         let r = JSON.parse(xhr.responseText);
         if (r.RESULTADO == 'OK') {
 
+            html += `<div >`;
+            html += ' <label for="imagen">Imagen:</label>';
+            html += `</div >`;
+            html += `<div name="imagen" >`;
+            document.getElementById("Imagenes").innerHTML = html;
             r.FILAS.forEach(function(e) {
+
 
                 html += `<div id="selectImagen">`;
 
@@ -255,6 +266,8 @@ function FotosPuzzle() {
 
                 document.getElementById("Imagenes").innerHTML = html;
             });
+            html += `</div  >`;
+            document.getElementById("Imagenes").innerHTML = html;
         }
     }
 
