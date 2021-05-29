@@ -1,0 +1,61 @@
+﻿@import url('General.css');
+@import url('Alternativo.css');
+
+
+.content {
+    font-size: 18px;
+}
+
+body > section {
+    font-size: 18px;
+}
+
+
+/*-- Botones Nav --*/
+.myButton {
+    box-shadow: 0px 0px 0px 2px #9eb2eb;
+    background: linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+    background-color: #768d87;
+    border-radius: 3px;
+    border: 1px solid #566963;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 18px;
+    padding: 5px;
+    width: 200px;
+    text-decoration: none;
+    text-shadow: 0px -1px 0px #2b665e;
+}
+
+    .myButton:hover {
+        background: linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+        background-color: #6c7c7c;
+    }
+
+    .myButton:active {
+        position: relative;
+        top: 1px;
+    }
+
+
+.botonp {
+    background-color: #768d87;
+    color: #fff;
+    font-size:18px;
+}
+
+
+
+input {
+    background-color: #000;
+    color: #fff;
+    font-size: 18px;
+}
+
+body > footer {
+    font-size: 20px;
+}
+
+
