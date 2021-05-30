@@ -291,6 +291,9 @@ function prepararCanvas2() {
                     factor = cv2.width / img.width,
                     posY = (cv2.height - cv2.height * factor) / 2;
 
+                ctx.fillStyle = "rgba(255, 255, 255)";
+                ctx.fillRect(0, 0, cv2.width, cv2.height)
+
                 ctx.drawImage(img, 0, posY, cv2.width, cv2.height * factor);
                 regionesCanvas();
 
