@@ -167,6 +167,7 @@ function regionesCanvas() {
         } else if (nuestroarray[fila][col].isColocada() != true) {
             if (ultimaPieza != "") {
                 var posCorrectaTemp = nuestroarray[fila][col].posCorrecta;
+                pieza2=ultimaPieza;
 
                 nuestroarray[fila][col].setPosCorrecta(ultimaPieza.posCorrecta[0], ultimaPieza.posCorrecta[1]);
                 ultimaPieza.setPosCorrecta(posCorrectaTemp[0], posCorrectaTemp[1]);
@@ -178,9 +179,16 @@ function regionesCanvas() {
                 console.log(ultimaPieza);
                 //dibujado de la pieza nueva
                 ctx1.drawImage(cv2, nuestroarray[fila][col].posCorrecta[0] * ancho, nuestroarray[fila][col].posCorrecta[1] * alto, ancho, alto, nuestroarray[fila][col].posActual[0] * ancho, nuestroarray[fila][col].posActual[1] * alto, ancho, alto);
+                setTimeout(compruebaPosActual, 500, posCorrectaTemp);
                 //dibujado de la pieza anterior
                 ctx1.drawImage(cv2, ultimaPieza.posCorrecta[0] * ancho, ultimaPieza.posCorrecta[1] * alto, ancho, alto, ultimaPieza.posActual[0] * ancho, ultimaPieza.posActual[1] * alto, ancho, alto);
+                //setInterval(compruebaPosUltima(), 500);
 
+                var ultimapiezax = ultimaPieza.posActual[0],
+                    ultimapiezay = ultimaPieza.posActual[1],
+                    pieza1 = nuestroarray[fila][col];
+
+                setTimeout(compruebaPosUltima, 500, ultimapiezax, ultimapiezay, pieza2);
                 ultimaPieza = "";
                 jugadas();
                 //cuando se termina el Juego
@@ -195,11 +203,29 @@ function regionesCanvas() {
                 ctx1.fillRect(colCanvasDestino * ancho, filaCanvasDestino * alto, ancho, alto)
                 ctx1.stroke();
             }
+            function compruebaPosActual() {
+                console.log("hola" + pieza1.isColocada());
+                pieza1.compruebaPos();
+                if (pieza1.isColocada() != true) {
+                    ctx1.fillStyle = "rgba(255, 255, 255)";
+                    ctx1.fillRect(nuestroarray[fila][col].posActual[0] * ancho, nuestroarray[fila][col].posActual[1] * alto, ancho, alto)
+
+                    ctx1.stroke();
+                }
+            }
+            function compruebaPosUltima(ultimax, ultimay) {
+                pieza2.compruebaPos();
+                console.log("ultimax " + ultimax, "ultimay " +ultimay);
+                if (pieza2.isColocada() != true) {
+                    ctx1.fillStyle = "rgba(255, 255, 255)";
+                    ctx1.fillRect(ultimax * ancho, ultimay * alto, ancho, alto)
+
+                    ctx1.stroke();
+                }
+            }
         }
         divisiones();
     };
-
-
 }
 
 function divisiones() {
