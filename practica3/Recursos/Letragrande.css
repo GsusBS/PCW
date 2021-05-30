@@ -1,0 +1,23 @@
+﻿@import url('General.css');
+
+
+.content {
+    font-size: 18px;
+}
+
+.myButton {
+    width: 200px;
+    font-size: 18px;
+}
+
+#RegForm {
+    font-size: 18px;
+}
+
+#Regform > input {
+    font-size: 18px;
+}
+
+body > footer {
+    font-size: 20px;
+}
