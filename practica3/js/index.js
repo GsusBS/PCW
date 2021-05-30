@@ -1,42 +1,40 @@
-class pieza{
-  constructor(x,y) {
-    this.posActual = [0,0],
-    this.posCorrecta = [x,y],
-    this.seleccionada = false,
-    this.colocada =false;
-  }
-
-  compruebaPos() {
-      if (this.posActual[0] == this.posCorrecta[0] && this.posActual[1] == this.posCorrecta[1]){
-      this.colocada=true;
+class pieza {
+    constructor(x, y) {
+        this.posActual = [0, 0],
+            this.posCorrecta = [x, y],
+            this.seleccionada = false,
+            this.colocada = false;
     }
-  }
 
-  compruebaDosPiezas(p){
+    compruebaPos() {
+        if (this.posActual[0] == this.posCorrecta[0] && this.posActual[1] == this.posCorrecta[1]) {
+            this.colocada = true;
+        }
+    }
 
-  }
-  setPosActual(x,y){
-      this.posActual = [x,y];
-  }
-  setPosCorrecta(x,y){
-      this.posCorrecta = [x, y];
-  }
-  //Getter
-  posActual(){
-      return this.posActual;
-  }
-  posCorrecta(){
-      return this.posCorrecta;
-  }
-  isSelected(){
-      return this.seleccionada;
-  }
-  isColocada(){
-      return this.colocada;
-  }
-  setSelected(estado){
-      this.seleccionada=estado;
-  }
+
+    setPosActual(x, y) {
+        this.posActual = [x, y];
+    }
+    setPosCorrecta(x, y) {
+            this.posCorrecta = [x, y];
+        }
+        //Getter
+    posActual() {
+        return this.posActual;
+    }
+    posCorrecta() {
+        return this.posCorrecta;
+    }
+    isSelected() {
+        return this.seleccionada;
+    }
+    isColocada() {
+        return this.colocada;
+    }
+    setSelected(estado) {
+        this.seleccionada = estado;
+    }
 
 }
 
@@ -69,14 +67,14 @@ var array8x8 = [
 
 ];
 
-var ultimaPieza ="";
+var ultimaPieza = "";
 
 var nuestroarray = [];
 
 function randomArray(array) {
-    nuestroarray.sort(function () { return Math.random() - 0.5 });
+    nuestroarray.sort(function() { return Math.random() - 0.5 });
     for (var i = 0; i < array.length; i++) {
-        nuestroarray[i].sort(function () { return Math.random() - 0.5 });
+        nuestroarray[i].sort(function() { return Math.random() - 0.5 });
         for (var j = 0; j < array[i].length; j++) {
             nuestroarray[i][j].setPosActual(j, i);
         }
@@ -84,23 +82,13 @@ function randomArray(array) {
     console.log(nuestroarray);
 }
 
-function inicioprueba() {
 
-    nuestroarray = array8x8;
-
-
-    console.log("Antes ", nuestroarray);
-    randomArray(nuestroarray);
-    console.log("Despues", nuestroarray);
-    console.log("8x8", array8x8);
-
-}
 
 function compruebaArray() {
 
     for (var i = 0; i < nuestroarray.length; i++) {
         for (var j = 0; j < nuestroarray[i].length; j++) {
-            if(nuestroarray[i][j].isColocada()!=true){
+            if (nuestroarray[i][j].isColocada() != true) {
                 return false;
             };
         }
@@ -141,10 +129,10 @@ function regionesCanvas() {
             alto = cv.height / div,
             //funcion matematica que nos de el entero mas proximo menor
             fila = Math.floor(y / alto);
-            col = Math.floor(x / ancho);
+        col = Math.floor(x / ancho);
 
-            console.log(x + ',' + y);
-            console.log("raton: "+ col + ',' + fila);
+        console.log(x + ',' + y);
+        console.log("raton: " + col + ',' + fila);
 
         //pintar la correspondiente region
         let cv2 = document.querySelector('#cv02'),
@@ -152,7 +140,7 @@ function regionesCanvas() {
             ctx1 = cv1.getContext('2d');
 
         nuestroarray[fila][col].compruebaPos();
-        console.log("ultima pieza: " );
+        console.log("ultima pieza: ");
         console.log(ultimaPieza);
         console.log("pieza seleccionada: ");
         console.log(nuestroarray[fila][col]);
@@ -173,11 +161,11 @@ function regionesCanvas() {
         if (nuestroarray[fila][col].isColocada() == true) {
             if (compruebaArray() == true) {
                 console.log("completado");
+                juegoCompleto();
             }
             ctx1.drawImage(cv2, nuestroarray[fila][col].posCorrecta[0] * ancho, nuestroarray[fila][col].posCorrecta[1] * alto, ancho, alto, nuestroarray[fila][col].posActual[0] * ancho, nuestroarray[fila][col].posActual[1] * alto, ancho, alto);
-        }
-        else if (nuestroarray[fila][col].isColocada() != true ) {
-            if(ultimaPieza!=""){
+        } else if (nuestroarray[fila][col].isColocada() != true) {
+            if (ultimaPieza != "") {
                 var posCorrectaTemp = nuestroarray[fila][col].posCorrecta;
 
                 nuestroarray[fila][col].setPosCorrecta(ultimaPieza.posCorrecta[0], ultimaPieza.posCorrecta[1]);
@@ -193,16 +181,15 @@ function regionesCanvas() {
                 //dibujado de la pieza anterior
                 ctx1.drawImage(cv2, ultimaPieza.posCorrecta[0] * ancho, ultimaPieza.posCorrecta[1] * alto, ancho, alto, ultimaPieza.posActual[0] * ancho, ultimaPieza.posActual[1] * alto, ancho, alto);
 
-                ultimaPieza="";
+                ultimaPieza = "";
                 jugadas();
                 //cuando se termina el Juego
-                if(compruebaArray()==true){
+                if (compruebaArray() == true) {
                     console.log("completado");
                 }
-            }
-            else{
+            } else {
                 //dibujado de la pieza hemos seleccionado una vez
-                ctx1.drawImage(cv2, colCanvasOrigen * ancho, filaCanvasOrigen * alto, ancho, alto, colCanvasDestino * ancho, filaCanvasDestino* alto, ancho, alto);
+                ctx1.drawImage(cv2, colCanvasOrigen * ancho, filaCanvasOrigen * alto, ancho, alto, colCanvasDestino * ancho, filaCanvasDestino * alto, ancho, alto);
                 ultimaPieza = nuestroarray[fila][col];
                 ctx1.fillStyle = "rgba(255, 0, 0, 0.5)";
                 ctx1.fillRect(colCanvasDestino * ancho, filaCanvasDestino * alto, ancho, alto)
@@ -296,54 +283,77 @@ function prepararCanvas2() {
 
 
 function hacerLogin(frm) {
-    var dificultad = frm.dificultad.value,
-        imagen = frm.imagen.value;
-    if (dificultad != "" && imagen != "") {
-        sessionStorage['dificultad'] = frm.dificultad.value;
-        sessionStorage['imagen'] = frm.imagen.value;
+
+
+    if (sessionStorage.dificultad && sessionStorage.id) {
+
+        sessionStorage['imagen'] = sessionStorage.id;
 
         document.location.href = 'juego.html';
-        return true;
+
     } else {
+
         sessionStorage['dificultad'] = "";
         sessionStorage['imagen'] = "";
         mostrarMensaje();
-        return false;
+
     }
 }
 //https://www.youtube.com/watch?v=llWqMUohBYU 1:15 como hacer el mensaje modal
 
 function mostrarMensaje() {
-    let div = document.createElement('div'),
-        html;
+    let texto;
+    let html = '';
 
-    div.id = 'msj-modal';
-    html = `<article>
-                <h2>Tienes que seleccionar ambos campos para empezar el juego</h2>
-                <footer>
-                    <button onclick="document.querySelector('#msj-modal').remove();">Cerrar</button>
-                </footer>
-                </article>`;
+    html = '<article>';
+    html += '<h2> ERROR </h2>';
+    html += '<p>Los campos no estan rellenados bien</p>';
+    html += '<p>Porfavor elija una foto y una dificultad</p>';
+    html += '<footer><button class="boton" onclick="cerrarMensaje()" > Aceptar </button>'; // aqui mejor ocultar el elemento
+    html += '</article>';
 
+    Popup(html);
+}
+
+function mostrarMensajeCompletado() {
+    let texto;
+    let html = '';
+
+    html = '<article>';
+    html += '<h2> FELICIDADES </h2>';
+    html += '<p>¿Has completado el puzzle!</p>';
+    html += '<footer><button class="boton" onclick="cerrarMensaje()" > Aceptar </button>'; // aqui mejor ocultar el elemento
+    html += '</article>';
+
+    Popup(html);
+}
+
+
+
+function Popup(html) {
+    let div = document.createElement('div');
+
+    div.setAttribute('id', 'popup');
     div.innerHTML = html;
 
-    document.body.appendChild(div);
-}
-
-
-
-
-
-function crearBotonStart() {
-
-
-    html = '';
-
-    html = `<button id="startButton" class="btn" onclick="puzzleStart();">Empezar</button>`;
-
-    document.getElementById('btnStart').innerHTML = html;
+    document.querySelector('body').appendChild(div);
 
 }
+
+function cerrarMensaje() {
+    document.querySelector('#popup').remove();
+}
+
+function comprobar() {
+    if (!sessionStorage.dificultad || !sessionStorage.imagen) {
+        location.href = './index.html';
+    }
+}
+
+function juegoCompleto() {
+    mostrarMensajeCompletado();
+}
+
 
 
 
@@ -361,16 +371,21 @@ function FotosPuzzle() {
         if (r.RESULTADO == 'OK') {
 
             html += `<div >`;
-            html += ' <label for="imagen">Imagen:</label>';
+            html += ' Imagen:';
             html += `</div >`;
-            html += `<div name="imagen" >`;
+            html += `<div >`;
+
+
+
             document.getElementById("Imagenes").innerHTML = html;
             r.FILAS.forEach(function(e) {
 
 
+
+
                 html += `<div id="selectImagen">`;
 
-                html += `<img src="./imagenes/${e.fichero}" alt="${e.fichero}" class="imagenesMinions" >`;
+                html += `<img src="./imagenes/${e.fichero}" alt="${e.fichero}" class="imagenesMinions" onClick="sessionStorage.id=${e.id}"  >`;
 
                 html += `<footer>`;
                 html += `<p> ${e.nombre} </p>`;
@@ -379,6 +394,7 @@ function FotosPuzzle() {
 
                 document.getElementById("Imagenes").innerHTML = html;
             });
+
             html += `</div  >`;
             document.getElementById("Imagenes").innerHTML = html;
         }
@@ -428,4 +444,8 @@ function PuntuacionesPuzzle() {
 
     xhr.send();
 
+}
+
+function selectdificultad(value) {
+    sessionStorage['dificultad'] = value;
 }

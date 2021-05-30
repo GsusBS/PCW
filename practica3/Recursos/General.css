@@ -21,7 +21,7 @@
 
 #sizeOpt {
     margin: auto;
-    width: 70%;
+    width: 95%;
     border: 3px solid blue;
     padding: 10px;
     content: "";
@@ -128,6 +128,46 @@ td {
 }
 
 
+/*-- Juego --*/
+
+#sizeOpt>h2 {
+    text-align: center;
+    padding: 5px;
+}
+
+#puzzleimg {
+    float: left;
+    width: 50%;
+    padding: 5px;
+    padding-left: 10%;
+    height: 100%;
+}
+
+#puzzlegame {
+    float: left;
+    width: 50%;
+    padding: 5px;
+    padding-left: 10%;
+    height: 100%;
+}
+
+#jugadas {
+    margin: auto;
+    margin-top: 10px;
+    background-color: #B0A0F3;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    width: 50%;
+    align-items: center;
+}
+
+#cv02,
+#cv01 {
+    border: 3px solid blue;
+}
+
+
 /*-- Footer --*/
 
 body>footer {
@@ -144,9 +184,50 @@ body>footer:hover {
     background-color: rgba(187, 255, 249, 0.808);
 }
 
+body>footer:active {
+    background-color: rgba(187, 255, 249, 0.808);
+}
+
 body>footer>p {
     margin: 0 0 0 1.2em;
     width: 46.5%;
+}
+
+#popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: (rgba(255, 255, 255, .8));
+}
+
+#popup>article {
+    background-color: white;
+    border: 2px solid #000;
+    text-align: center;
+    width: 20em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    transform: translateY(-50%);
+}
+
+#popup>article>h2 {
+    background-color: #B0A0F3;
+    margin: 0;
+    padding: .5em;
+    color: white;
+}
+
+#popup>article>footer {
+    margin: .5em;
+    font-size: 1em;
+    background-color: #ccc;
+    border: 1px #aaa solid;
+    padding: .5em 2em;
+    cursor: pointer;
 }
 
 
