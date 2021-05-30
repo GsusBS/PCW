@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<!-- La cabecera -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="Recursos/General.css">
+    <link rel="stylesheet" type="text/css" href="css/iconos-fonts.css">
+    <script src="./js/index.js"></script>
+
+    <title>PUZZLE INDEX</title>
+
+</head>
+
+<body>
+    <header class="header" id="header">
+        <!--Cabecera-->
+        <div class="logo" onclick="window.location.href='acerca.html'">
+
+
+            <img alt="logo sudoku" src="./Fotos/puzzle.png" width="100">
+            <h1>PUZZLE</h1>
+
+
+        </div>
+
+
+
+    </header>
+
+
+
+
+    <br>
+
+    <section id="sizeOpt">
+
+        <div id="tablapuntuaciones">
+            <h2>Tabla de puntiaciones</h2>
+
+            <div id="puntuaciones">
+                <table id="tablaPut">
+
+                </table>
+
+            </div>
+
+            <footer>
+
+                <div id="paginacion">
+
+                    <div id="botonprev">
+
+                        <button onclick="anteriorArt();">&#60;</button>
+
+                    </div>
+
+
+                    <div id="numpag"></div>
+
+
+                    <div id="botonpost">
+
+                        <button onclick="siguienteArt();">&#62;</button>
+
+                    </div>
+                </div>
+
+
+            </footer>
+        </div>
+        <div id="dificultadyfoto">
+
+            <div id="Imagenes">
+
+            </div>
+            <div id="elegirdificultades">
+                Dificultad:
+                <br>
+                <input type="radio" id="4x4" name="dificultad" value="4x4" onclick="selectdificultad(value)">
+                <label for="4x4">4x4</label>
+
+                <input type="radio" id="6x6" name="dificultad" value="6x6" onclick="selectdificultad(value)">
+                <label for="6x6">6x6</label>
+
+                <input type="radio" id="8x8" name="dificultad" value="8x8" onclick="selectdificultad(value)">
+                <label for="8x8">8x8</label>
+            </div>
+
+
+            <div>
+
+                <button onclick="hacerLogin()">Empezar</button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <footer>
+        <!-- Pie -->
+
+        <p>&copy;<strong>Ander Garykoitz Ichaso Hurtado, Jesus Bernabeu Saez</strong> <time datetime="2021-03">| Marzo
+				2021</time></p>
+
+        <button id="Acerca" onclick="window.location.href='acerca.html'" class="btn">Acerca</button>
+    </footer>
+    <script>
+        FotosPuzzle();
+        PuntuacionesPuzzle()
+    </script>
+
+
+</body>
+
+</html>
