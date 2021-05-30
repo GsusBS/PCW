@@ -34,6 +34,7 @@
     float: left;
     width: 30%;
     padding: 5px;
+    padding-left: 40px;
     height: 100%;
 }
 
@@ -60,6 +61,11 @@ td {
     height: 100%;
 }
 
+#elegirdificultades {
+    padding-top: 20px;
+    text-align: center;
+}
+
 #selectImagen {
     float: left;
     width: 33.33%;
@@ -68,11 +74,20 @@ td {
     height: 200px;
 }
 
+#selectImagen>img {
+    margin: auto;
+    margin-left: 20%;
+}
+
+#selectImagen>footer>p {
+    text-align: center;
+}
+
 #selectImagen:hover {
     border: 3px solid yellow;
 }
 
-.Imagenes:after {
+#Imagenes:after {
     content: "";
     display: table;
     clear: both;

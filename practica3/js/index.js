@@ -161,7 +161,7 @@ function regionesCanvas() {
         if (nuestroarray[fila][col].isColocada() == true) {
             if (compruebaArray() == true) {
                 console.log("completado");
-                juegoCompleto();
+                mostrarMensajeCompletado()
             }
             ctx1.drawImage(cv2, nuestroarray[fila][col].posCorrecta[0] * ancho, nuestroarray[fila][col].posCorrecta[1] * alto, ancho, alto, nuestroarray[fila][col].posActual[0] * ancho, nuestroarray[fila][col].posActual[1] * alto, ancho, alto);
         } else if (nuestroarray[fila][col].isColocada() != true) {
@@ -322,8 +322,13 @@ function mostrarMensajeCompletado() {
     html = '<article>';
     html += '<h2> FELICIDADES </h2>';
     html += '<p>¿Has completado el puzzle!</p>';
-    html += '<footer><button class="boton" onclick="cerrarMensaje()" > Aceptar </button>'; // aqui mejor ocultar el elemento
+
+    html += '<form id="frmFIN" onsubmit="return insertarJugador(this);></form>';
+    html += '<label for="nombre">Escribe tu nombre aquí</label>';
+    html += '<input  type="text" id="nombre" name="nombre"  placeholder="Nombre" size="35" required autofocus>';
+    html += '<footer>  <input type="submit" value="Enviar" > </footer>'; // aqui mejor ocultar el elemento
     html += '</article>';
+
 
     Popup(html);
 }
@@ -354,6 +359,55 @@ function juegoCompleto() {
     mostrarMensajeCompletado();
 }
 
+function insertarJugador(frm) {
+
+
+    let url = './api/puntuaciones',
+        fd = new FormData(frm);
+
+    //fd.append("nombre", frm.nombre.value);
+    fd.append("id_imagen", sessionStorage.id);
+    fd.append("dificultad", sessionStorage.dificultad);
+    fd.append("jugadas", cont);
+    console.log("fd ", fd);
+
+    xhr = new XMLHttpRequest();
+
+    xhr.open('POST', url, true); //porque el login es de tipo post, el true es de asincrona
+    xhr.onload = function() {
+        console.log(xhr.responseText);
+
+
+        let r = JSON.parse(xhr.responseText); //convertimos el json en un objeto de javascript
+
+        if (r.RESULTADO == 'OK') {
+
+
+
+        } else {
+            console.log("Error en la peticion");
+
+
+        }
+    };
+    xhr.send(fd);
+
+    /*fetch(url, { 'method': 'POST', 'body': fd })
+        .then(function(response) {
+            if (!response.ok)
+                return;
+            response.json().then(function(datos) {
+                console.log(datos);
+
+            });
+        });
+*/
+    sessionStorage.clear();
+    //cerrarMensaje();
+    //location.href = 'index.html';
+    return false;
+
+}
 
 
 
@@ -383,9 +437,9 @@ function FotosPuzzle() {
 
 
 
-                html += `<div id="selectImagen">`;
+                html += `<div id="selectImagen" onClick="sessionStorage.id=${e.id}">`;
 
-                html += `<img src="./imagenes/${e.fichero}" alt="${e.fichero}" class="imagenesMinions" onClick="sessionStorage.id=${e.id}"  >`;
+                html += `<img src="./imagenes/${e.fichero}" alt="${e.fichero}" class="imagenesMinions"   >`;
 
                 html += `<footer>`;
                 html += `<p> ${e.nombre} </p>`;
