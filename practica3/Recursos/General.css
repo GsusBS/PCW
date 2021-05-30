@@ -49,6 +49,34 @@ td {
     text-align: center;
 }
 
+#paginacion {
+    width: 90%;
+}
+
+#numpag {
+    float: left;
+    width: 10%;
+}
+
+#botonprev {
+    float: left;
+    width: 25%;
+    padding: 10px;
+}
+
+#botonpost {
+    float: left;
+    width: 25%;
+    padding: 10px;
+    margin-left: auto;
+}
+
+#paginacion:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 #cabecera {
     color: white;
     background-color: #baabdd;

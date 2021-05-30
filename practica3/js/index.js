@@ -167,7 +167,7 @@ function regionesCanvas() {
         } else if (nuestroarray[fila][col].isColocada() != true) {
             if (ultimaPieza != "") {
                 var posCorrectaTemp = nuestroarray[fila][col].posCorrecta;
-                pieza2=ultimaPieza;
+                pieza2 = ultimaPieza;
 
                 nuestroarray[fila][col].setPosCorrecta(ultimaPieza.posCorrecta[0], ultimaPieza.posCorrecta[1]);
                 ultimaPieza.setPosCorrecta(posCorrectaTemp[0], posCorrectaTemp[1]);
@@ -203,6 +203,7 @@ function regionesCanvas() {
                 ctx1.fillRect(colCanvasDestino * ancho, filaCanvasDestino * alto, ancho, alto)
                 ctx1.stroke();
             }
+
             function compruebaPosActual() {
                 console.log("hola" + pieza1.isColocada());
                 pieza1.compruebaPos();
@@ -213,9 +214,10 @@ function regionesCanvas() {
                     ctx1.stroke();
                 }
             }
+
             function compruebaPosUltima(ultimax, ultimay) {
                 pieza2.compruebaPos();
-                console.log("ultimax " + ultimax, "ultimay " +ultimay);
+                console.log("ultimax " + ultimax, "ultimay " + ultimay);
                 if (pieza2.isColocada() != true) {
                     ctx1.fillStyle = "rgba(255, 255, 255)";
                     ctx1.fillRect(ultimax * ancho, ultimay * alto, ancho, alto)
@@ -484,11 +486,16 @@ function FotosPuzzle() {
 
 }
 
+
 function PuntuacionesPuzzle() {
     let html = '';
+    if (sessionStorage.getItem("indexpag") == null) {
+        sessionStorage.setItem("indexpag", 0);
+    }
 
     let xhr = new XMLHttpRequest();
-    let url = './api/puntuaciones/?ord=j';
+    let url = './api/puntuaciones/?ord=j,dd,ja&pag=' + sessionStorage['indexpag'] + '&lpag=3';
+
     let pos = 0;
     xhr.open('GET', url, true);
     xhr.onload = function() {
@@ -508,7 +515,7 @@ function PuntuacionesPuzzle() {
                 pos++;
 
                 html += `<tr>`;
-                html += `<td>${pos}</td>`;
+                html += `<td>${pos+(sessionStorage['indexpag']*3)}</td>`;
                 html += `<td>${e.nombre}</td>`;
                 html += `<td>${e.usuario}</td>`;
                 html += `<td>${e.dificultad}</td>`;
@@ -518,6 +525,7 @@ function PuntuacionesPuzzle() {
 
 
                 document.getElementById("tablaPut").innerHTML = html;
+
             });
         }
     }
@@ -528,4 +536,25 @@ function PuntuacionesPuzzle() {
 
 function selectdificultad(value) {
     sessionStorage['dificultad'] = value;
+}
+
+function siguienteArt() {
+
+
+    sessionStorage.setItem("indexpag", parseInt(sessionStorage.getItem("indexpag")) + 1);
+    document.querySelector('#numpag').innerHTML = parseInt(sessionStorage.getItem("indexpag")) + 1;
+    PuntuacionesPuzzle();
+}
+
+
+function anteriorArt() {
+
+    if (sessionStorage.getItem("indexpag") > 0) {
+
+        sessionStorage.setItem("indexpag", parseInt(sessionStorage.getItem("indexpag")) - 1);
+        document.querySelector('#numpag').innerHTML = parseInt(sessionStorage.getItem("indexpag")) + 1;
+        PuntuacionesPuzzle();
+    }
+
+
 }
