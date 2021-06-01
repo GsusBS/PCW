@@ -1,3 +1,4 @@
+/* Practica Puzzle 2021     */
 class pieza {
     constructor(x, y) {
         this.posActual = [0, 0],
@@ -388,6 +389,7 @@ function comprobar() {
     }
 }
 
+/* Funcion de ejemplo de un Post*/
 
 function insertarJugador(frm) {
 
