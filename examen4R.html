@@ -10,7 +10,7 @@
 
     <title>PUZZLE INDEX</title>
 
-    <body>
+    <body onload="empezar()">
         <header class="header" id="header">
             <!--Cabecera-->
             <h1><b>Examen de PCW</b></h1>
@@ -23,18 +23,23 @@
             <h2>Juego del 4 en raya</h2>
             <div>
                 <div id="zonaJuego">
-                    <canvas></canvas>
+                    <canvas id="cv"></canvas>
+
                 </div>
+
                 <div id="zonaLeyenda">
-                    <div>
+                    <div id="jugador1">
                         <p>Jugador 1</p>
                         <span id="dot1"></span>
                     </div>
-                    <div>
+                    <div id="jugador2">
                         <p>Jugador 2</p>
                         <span id="dot2"></span>
                     </div>
+
                 </div>
+
+
             </div>
 
         </section>
@@ -49,6 +54,7 @@
 
         </footer>
         <script>
+            prepararCanvas();
         </script>
 
 
