@@ -1,5 +1,7 @@
 var hoy = new Date();
 var seleccion = new Date();
+var primero = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+
 var tablero = [
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
@@ -11,7 +13,9 @@ var tablero = [
 var eventillos = [
     [new Date(2021, 05, 14), "Incendiar la Uni"],
     [new Date(2021, 05, 27), "Pelear con patos"],
-    [new Date(2021, 05, 04), "Aprobar PCW"]
+    [new Date(2021, 05, 04), "Aprobar PCW"],
+    [new Date(2021, 04, 08), "Bailar breakdance"],
+    [new Date(2021, 06, 24), "Hacer Parapente"]
 
 
 ];
@@ -29,7 +33,7 @@ class calendar {
         }
     }
 
-    seleccionMesAno() {
+    seleccionMesAno(seleccionado) {
         let cont = 0;
         for (let i = 0; i < tablero.length; i++) {
             for (let j = 0; j < tablero[i].length; j++) {
@@ -37,6 +41,7 @@ class calendar {
                 cont++;
             }
         }
+
 
     }
 }
@@ -71,7 +76,7 @@ function imprimirCalendario() {
     for (let i = 0; i < calendario.tablero.length; i++) {
         html += `<tr>`;
         for (let j = 0; j < calendario.tablero[i].length; j++) {
-            if (calendario.tablero[i][j].getMonth() == hoy.getMonth()) {
+            if (calendario.tablero[i][j].getMonth() == seleccion.getMonth()) {
 
                 if (calendario.tablero[i][j].getDay() == 0) {
                     html += `<th class="domingo">`;
@@ -150,25 +155,30 @@ function mesPalabra() {
 function anterior() {
     let nuevoMes = seleccion.getMonth();
     seleccion.setMonth(nuevoMes - 1);
-    calendario.seleccionMesAno();
+    calendario.seleccionMesAno(seleccion);
     sacarMesAno();
     imprimirCalendario();
+    eventosProximos();
 
 }
 
 function siguiente() {
     let nuevoMes = seleccion.getMonth();
     seleccion.setMonth(nuevoMes + 1);
-    calendario.seleccionMesAno();
+    calendario.seleccionMesAno(seleccion);
     sacarMesAno();
     imprimirCalendario();
+    eventosProximos();
 
 }
 
 function eventosProximos() {
     let html = '';
     for (i = 0; i < eventillos.length; i++) {
-        html += `<li> {` + eventillos[i][0].getDate() + `-` + eventillos[i][0].getMonth() + '-' + eventillos[i][0].getFullYear() + `, ` + eventillos[i][0].getHours() + ':' + eventillos[i][0].getMinutes() + ` } ` + eventillos[i][1] + `</li>`;
+        if (eventillos[i][0].getMonth() == seleccion.getMonth()) {
+            html += `<li> {` + eventillos[i][0].getDate() + `-` + eventillos[i][0].getMonth() + '-' + eventillos[i][0].getFullYear() + `, ` + eventillos[i][0].getHours() + ':' + eventillos[i][0].getMinutes() + ` } ` + eventillos[i][1] + `</li>`;
+
+        }
     }
     document.getElementById("eventos").innerHTML = html;
 
