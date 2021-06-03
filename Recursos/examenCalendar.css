@@ -47,12 +47,22 @@ footer {
     background-color: gray;
 }
 
+.domingo {
+    background-color: green;
+}
+
+#paginacion {
+    display: flex;
+    justify-content: space-around;
+}
+
+#paginacion>div>button {
+    margin-top: 10px;
+    margin-left: auto;
+}
+
 
 /*  Leyenda    */
-
-#zonaLeyenda {
-    padding-top: 100px;
-}
 
 
 /* ----   POPUP ----*/
