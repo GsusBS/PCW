@@ -1,0 +1,59 @@
+--- CANVAS ---
+.strokeRect(x,y,w,h) Dibuja rectangulo
+.arc(x,y,r,andInicio,angFin,sentido) Dibuja circulo terminando en angFin
+.fillText(texto, x,y[,maxWidth]) Texto en CANVAS
+.font fuente del texto
+.textAlign
+
+.fill rellena un path
+.beginpath()
+.closePath()
+
+
+--- SVG ---
+Esto dibuja un circulo rojo con fondo azul
+<svg xmlns="http://www.w3.org/2000/sbg" width="400" heigth="400">
+<circle class="fontoRojo bordeAzul" cx="120" cy="150" r=50/>
+</svg>
+en css:
+.fondoRojo{
+    fill: #a00; red
+}
+.bordeAzul{
+    stroke: #00a; blue
+    stroke-width:2px
+}
+--
+Elemento imagen  en svg
+<img src="circulorojo.svg" alt="Circulo rojo"/>
+
+<svg xmlns="http://www.w3.org/2000/sbg" width="400" heigth="400">
+    <style type="text/css">
+        .circuloRojo{fill:#a00; stroke: #00a; stroke-width:2px;}
+    </style>
+    <circle class="circuloRojo" cx="52" cy="52" r="50 />
+</svg>
+
+---
+Otras maneras de hacerlo:
+<svg xmlns="http://www.w3.org/2000/sbg" width="400" heigth="400">
+    <circle  cx="52" cy="52" r="50 fill="#a00" stroke="#00a" stroke-width="5px"   />
+</svg>
+
+tambien como:
+<ellipse /> rx,ry radios de ellipse
+line: x1 y1 inicio // x2 y2 fin
+polilyne: points "40,300 80,500 30,200 ..."
+polygon: points (igual)
+rect: rectangulo: x,y,width,height
+<g></g> diferentes dibujos
+<a><circle/></a> la imagen es un enlace
+<image></image>: imagen en el area indicada: x,y,width,height, xlink:href="url"
+<text>Hola</text> 
+---
+matrix(a,b,c,d,e,f)
+translate(tx[,ty]);
+scale(sx,[,sy])
+rotate(angulo[,cx,cy])
+
+

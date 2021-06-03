@@ -1,8 +1,9 @@
 var hoy = new Date();
 var seleccion = new Date();
-var primero = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+var primero;
 
 var tablero = [
+    [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
@@ -24,24 +25,40 @@ var eventillos = [
 class calendar {
     constructor() {
         this.tablero = tablero;
-        let cont = 0;
+        let cont = 1;
+        primero = new Date(seleccion.getFullYear(), seleccion.getMonth(), 1);
         for (let i = 0; i < tablero.length; i++) {
             for (let j = 0; j < tablero[i].length; j++) {
-                tablero[i][j] = new Date(hoy.getFullYear(), hoy.getMonth(), cont);
-                cont++;
+                if (i == 0 && j < primero.getDay() - 1) {
+                    tablero[i][j] = new Date(hoy.getFullYear() - 80, hoy.getMonth(), 99);
+
+                } else {
+
+                    tablero[i][j] = new Date(hoy.getFullYear(), hoy.getMonth(), cont);
+                    cont++;
+                }
+
             }
         }
+
     }
 
     seleccionMesAno(seleccionado) {
-        let cont = 0;
+        let cont = 1;
+        primero = new Date(seleccion.getFullYear(), seleccion.getMonth(), 1);
         for (let i = 0; i < tablero.length; i++) {
             for (let j = 0; j < tablero[i].length; j++) {
-                tablero[i][j] = new Date(seleccion.getFullYear(), seleccion.getMonth(), cont);
-                cont++;
+                if (i == 0 && j < primero.getDay() - 1) { //Pone el dia 1 donde corresponde y no solo lunes/martes
+                    tablero[i][j] = new Date(seleccion.getFullYear() - 80, seleccion.getMonth(), 99);
+
+                } else {
+
+                    tablero[i][j] = new Date(seleccion.getFullYear(), seleccion.getMonth(), cont);
+                    cont++;
+                }
+
             }
         }
-
 
     }
 }
@@ -54,9 +71,6 @@ function empezar() {
     imprimirCalendario(); //Muestra el calendario por pantalla (rellena el table)
     sacarMesAno(); // Para la paginacion de arriba, saca el mes y año por pantalla
     eventosProximos(); // Lista de eventos 
-
-
-
 
 }
 
@@ -151,7 +165,7 @@ function mesPalabra() {
 
     return mes;
 }
-
+/* --- Funciones de Paginacion ---- */
 function anterior() {
     let nuevoMes = seleccion.getMonth();
     seleccion.setMonth(nuevoMes - 1);

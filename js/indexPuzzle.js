@@ -349,7 +349,7 @@ function mostrarMensaje() {
 }
 
 function mostrarMensajeCompletado() {
-    let texto;
+
     let html = '';
 
     html = '<article>';
@@ -413,7 +413,7 @@ function insertarJugador(frm) {
         let r = JSON.parse(xhr.responseText); //convertimos el json en un objeto de javascript
 
         if (r.RESULTADO == 'OK') {
-
+            console.log("Ha funcionado");
 
 
         } else {
@@ -446,7 +446,7 @@ function Terminar() {
 }
 
 function volverIndex() {
-    sessionStorage.clear();
+    sessionStorage.clear(); //Vaciar sessionStorage
     location.href = './index.html';
 
 }

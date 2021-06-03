@@ -1,0 +1,73 @@
+
+ --- AUDIO ---
+<audio controls autoplay src="sonidos/bass.mp3" type="audio/mp3">  </audio>
+Este deja un input de tipo audio que al darle play reproduce el audio especificado
+
+controls: especifica que queremos tener el cuadro de mando (boton) para poder reproducir cuando queramos
+src: fuente
+preload: especifica como debe cargarse el archivo
+autoplay: iniciar nada mas cargar web
+loop
+muted
+
+
+--- VIDEO ---
+
+<video controls preload="auto" src="sonidos/pelicula.mp3" heigth="320" width="240" type="audio/mp3">  </video>
+
+Poster: mientras el video no está ejecutandose, muestra la imagen especifica
+
+
+--- SOURCE ---
+<audio controls>
+    <source src="audio.wav" type="audio/wav">
+      <source src="audio2.wav" type="audio/wav">
+      Tu navegador no soporta este audio {Aclaracion: esto es por si no funciona el source}
+</audio>
+Tambien con video
+
+--- TRACK ---
+Subtitulos
+<audio controls>
+    <source src="audio.wav" type="audio/wav">
+      <source src="audio2.wav" type="audio/wav">
+      <track src="sub_esp.vtt" kind="subtitles" srclang="es" label="Español">
+</audio>
+
+kind: tipo de pistas: subtitles, captions, descriptions, chapters, metadata (ni puta idea)
+srclang: idioma de texto de la pista
+labe: titulo de la pista
+default: pista por defecto
+
+Para subtitulos necesitariamos un archivo .vtt y en cada linea tendriamos algo tal que:
+1
+00:00:31:000 --> 00:00:34:00
+Tal vez no funciona en burros
+
+2
+00:00:34:000 --> 00:00:36:00
+Soy batman
+
+--- API Audio y video ---
+.paused
+.ended
+.currentTime
+.duration
+.src
+.volume
+.muted
+.playBlackRate : velocidad
+.load()
+.play()
+.pause()
+.canPlayType(): comprueba si navegador puede
+Eventos:
+.onplay
+.onpause
+.onended
+.onvolumechange
+.ontimeupdate
+.requestFullScreen() : cambia video a pantalla completa si navegador lo soporta
+document.exitFullScreen() : vuelve a tamaño normal
+
+
